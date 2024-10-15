@@ -1,4 +1,3 @@
-String get elementsMainName => 'GetPut';
-String get generatedFilesPrefix => 'get_put';
+String get elementsMainName => 'Mem';
+String get generatedFilesPrefix => 'mem';
 String get generatedFilesDependenciesPostfix => 'dependencies';
-String get fenix => 'true';

@@ -1,3 +1,3 @@
-library getx_binding_annotation_generator;
+library dart_model_entity_annotation_generator;
 
 export 'lib/builder.dart';

@@ -1,17 +1,13 @@
 enum AnnotationTypes {
-  page,
-  controller,
-  component,
-  repository,
+  model,
+  entity,
+  json,
+  api,
   unknown,
 }
 
 enum ImportDependencies {
-  main(url: 'main.dart'),
-  get(url: 'package:get/get.dart'),
-  material(url: 'package:flutter/material.dart'),
-  dartAsync(url: 'dart:async'),
-  getDependenciesBindingAnnotation(url: 'package:getx_binding_annotation/annotation.dart');
+  modelEntityAnnotation(url: 'package:dart_mem_annotation/annotation.dart');
 
   final String url;
   const ImportDependencies({required this.url});

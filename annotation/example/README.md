@@ -4,27 +4,27 @@
 </p>
 <p align="center">
   <!-- Pub Version -->
-  <a href="https://pub.dev/packages/getx_binding_annotation"><img src="https://img.shields.io/pub/v/getx_binding_annotation?logo=dart" alt="PubVersion"></a>
+  <a href="https://pub.dev/packages/mem_annotation"><img src="https://img.shields.io/pub/v/mem_annotation?logo=dart" alt="PubVersion"></a>
   <!-- Pub Points} -->
-  <a href="https://pub.dev/packages/getx_binding_annotation"><img src="https://img.shields.io/pub/points/getx_binding_annotation?logo=dart" alt="PubPoints"></a>
+  <a href="https://pub.dev/packages/mem_annotation"><img src="https://img.shields.io/pub/points/mem_annotation?logo=dart" alt="PubPoints"></a>
   <!-- GitHub Repo -->
-  <a href="https://github.com/reesaam/flutter_getx_dependencies_binding_annotation"><img src="https://img.shields.io/badge/repo-Getx_Binding_Annotation-yellowgreen?logo=github" alt="build"></a>
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/repo-Mem_Annotation-yellowgreen?logo=github" alt="build"></a>
   <!-- GitHub Stars -->
-  <a href="https://github.com/reesaam/flutter_getx_dependencies_binding_annotation"><img src="https://img.shields.io/github/stars/felangel/bloc.svg?style=flat&logo=github&colorB=deeppink&label=stars" alt="Star on Github"></a>
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/github/stars/felangel/bloc.svg?style=flat&logo=github&colorB=deeppink&label=stars" alt="Star on Github"></a>
   <!-- DartDoc -->
-  <a href="https://pub.dev/documentation/getx_binding_annotation/latest"><img src="https://img.shields.io/badge/dartdocs-latest-blue.svg" alt="Latest Dartdocs"></a>
+  <a href="https://pub.dev/documentation/mem_annotation/latest"><img src="https://img.shields.io/badge/dartdocs-latest-blue.svg" alt="Latest dartdocs"></a>
 </p>
 <p align="center">
-  <a href="https://github.com/reesaam/flutter_getx_dependencies_binding_annotation"><img src="https://img.shields.io/badge/Android-black?logo=android" alt="android"></a>
-  <a href="https://github.com/reesaam/flutter_getx_dependencies_binding_annotation"><img src="https://img.shields.io/badge/iOS-black?logo=apple" alt="ios"></a>
-  <a href="https://github.com/reesaam/flutter_getx_dependencies_binding_annotation"><img src="https://img.shields.io/badge/Web-black" alt="ios"></a>
-  <a href="https://github.com/reesaam/flutter_getx_dependencies_binding_annotation"><img src="https://img.shields.io/badge/Linux-black?logo=linux" alt="linux"></a>
-  <a href="https://github.com/reesaam/flutter_getx_dependencies_binding_annotation"><img src="https://img.shields.io/badge/Windows-black" alt="windows"></a>
-  <a href="https://github.com/reesaam/flutter_getx_dependencies_binding_annotation"><img src="https://img.shields.io/badge/MacOS-black?logo=apple" alt="mac-os"></a>
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/Android-black?logo=android" alt="android"></a>
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/iOS-black?logo=apple" alt="ios"></a>
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/Web-black" alt="ios"></a>
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/Linux-black?logo=linux" alt="linux"></a>
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/Windows-black" alt="windows"></a>
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/MacOS-black?logo=apple" alt="mac-os"></a>
 
 </p>
 
-A Code Generator Plugin to Generate Models, Entities and Mapper base on Annotation.
+Mem Annotation Generator is a Code Generator Plugin to Generate Models, Entities and Mapper base on Annotation.
 This package designed to prevent adding extra codes to add Models, Entities and Mappers one by one.
 You can use it for Models, APIs and JSONs.
 
@@ -43,11 +43,11 @@ You can use it for Models, APIs and JSONs.
 Add dependencies in the `pubspec.yaml`:
 ```yaml
 dependencies:
-  dart_model_entity_annotation: ^latest
+  mem_annotation: ^latest
 
 dev_dependencies:
   build_runner: ^latest
-  dart_model_entity_annotation_generator: ^latest
+  mem_annotation_generator: ^latest
 ```
 
 Get the Changes by:
@@ -62,7 +62,7 @@ dart pub get
 ## Usage
 
 ```dart
-import 'package:dart_model_entity_annotation/annotation.dart';
+import 'package:mem_annotation/annotation.dart';
 ```
 
 Add desired `@Annotation` on top of the desired class and set the desired Options.
@@ -112,7 +112,7 @@ class SettingsPage extends GetView<SettingsController> {}
 ```
 
 ## Docs
-<a href="https://github.com/reesaam/dart_model_entity_mapper_annotation_generator/tree/main/generator/doc/api"><img src="https://img.shields.io/badge/GitHub-Docs_Repository-important?logo=github" alt="build"></a>
+<a href="https://github.com/reesaam/dart_mem_annotation_generator/tree/main/generator/doc/api"><img src="https://img.shields.io/badge/GitHub-Docs_Repository-important?logo=github" alt="build"></a>
 
 ## About Author
 

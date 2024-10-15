@@ -4,31 +4,34 @@ targets:
       source_gen|combining_builder:
         options:
           build_extensions:
-            '.get_put.g.dart': 'lib/generated_main.get_put.dart'
-      getx_binding_annotation_generator|getx_binding_annotation_builder:
+            '{{}}.mem.g.dart': '{{}}.mem.dart'
+      dart_mem_annotation_generator|dart_mem_annotation_builder:
         enabled: true
-      getx_binding_annotation_generator|getx_binding_code_generator:
+      dart_mem_annotation_generator|dart_mem_code_generator:
         enabled: true
 
 
 builders:
 
   # Annotation Builder
-  getx_binding_annotation_builder:
-    import: "package:getx_binding_annotation_generator/builder.dart"
+  dart_mem_annotation_builder:
+    import: "package:dart_mem_annotation_generator/builder.dart"
     builder_factories: [ "annotationBuilder" ]
-    build_extensions: { '.dart': [ '.get_put.g.dart' ] }
+    build_extensions: { '{{}}.dart': [ '{{}}.g.dart' ] }
     auto_apply: dependents
     build_to: cache
-    applies_builders: [ "getx_binding_annotation_generator|getx_binding_code_generator" ]
+    applies_builders: [ "dart_mem_annotation_generator|dart_mem_code_generator" ]
     runs_before:
-      - getx_binding_annotation_generator|getx_binding_code_generator
+      - dart_mem_annotation_generator|dart_mem_code_generator
+      - source_gen|combining_builder
 
   # Code Generator
-  getx_binding_code_generator:
-    import: "package:getx_binding_annotation_generator/builder.dart"
+  dart_mem_code_generator:
+    import: "package:dart_mem_annotation_generator/builder.dart"
     builder_factories: [ "codeGenerator" ]
-    build_extensions: { '.g.dart': [ 'lib/generated_main.get_put.dart' ] }
+    build_extensions: { '{{}}.g.dart': [ '{{}}.mem.dart' ] }
     auto_apply: dependents
-    build_to: source
+    build_to: cache
     applies_builders: [ "source_gen|combining_builder" ]
+    runs_before:
+      - source_gen|combining_builder
