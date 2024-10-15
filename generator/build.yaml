@@ -1,0 +1,34 @@
+targets:
+  $default:
+    builders:
+      source_gen|combining_builder:
+        options:
+          build_extensions:
+            '.get_put.g.dart': 'lib/generated_main.get_put.dart'
+      getx_binding_annotation_generator|getx_binding_annotation_builder:
+        enabled: true
+      getx_binding_annotation_generator|getx_binding_code_generator:
+        enabled: true
+
+
+builders:
+
+  # Annotation Builder
+  getx_binding_annotation_builder:
+    import: "package:getx_binding_annotation_generator/builder.dart"
+    builder_factories: [ "annotationBuilder" ]
+    build_extensions: { '.dart': [ '.get_put.g.dart' ] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: [ "getx_binding_annotation_generator|getx_binding_code_generator" ]
+    runs_before:
+      - getx_binding_annotation_generator|getx_binding_code_generator
+
+  # Code Generator
+  getx_binding_code_generator:
+    import: "package:getx_binding_annotation_generator/builder.dart"
+    builder_factories: [ "codeGenerator" ]
+    build_extensions: { '.g.dart': [ 'lib/generated_main.get_put.dart' ] }
+    auto_apply: dependents
+    build_to: source
+    applies_builders: [ "source_gen|combining_builder" ]
