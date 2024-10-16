@@ -1,3 +1,3 @@
-library dart_model_entity_annotation;
+library dart_mem_annotation;
 
 export 'src/base.dart';

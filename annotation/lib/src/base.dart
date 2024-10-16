@@ -16,6 +16,7 @@ class Mem {
   final AnnotationTypes? type;
   final Type? as;
 
+  const Mem({this.as}) : type = AnnotationTypes.model;
   const Mem.model({this.as}) : type = AnnotationTypes.model;
   const Mem.entity({this.as}) : type = AnnotationTypes.entity;
   const Mem.json({this.as}) : type = AnnotationTypes.json;

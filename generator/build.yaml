@@ -4,7 +4,7 @@ targets:
       source_gen|combining_builder:
         options:
           build_extensions:
-            '{{}}.mem.g.dart': '{{}}.mem.dart'
+            '.mem.g.dart': '.mem.g.dart'
       dart_mem_annotation_generator|dart_mem_annotation_builder:
         enabled: true
       dart_mem_annotation_generator|dart_mem_code_generator:
@@ -17,21 +17,18 @@ builders:
   dart_mem_annotation_builder:
     import: "package:dart_mem_annotation_generator/builder.dart"
     builder_factories: [ "annotationBuilder" ]
-    build_extensions: { '{{}}.dart': [ '{{}}.g.dart' ] }
+    build_extensions: { '.dart': [ '.mem.g.dart' ] }
     auto_apply: dependents
-    build_to: cache
+    build_to: source
     applies_builders: [ "dart_mem_annotation_generator|dart_mem_code_generator" ]
     runs_before:
       - dart_mem_annotation_generator|dart_mem_code_generator
-      - source_gen|combining_builder
 
   # Code Generator
   dart_mem_code_generator:
     import: "package:dart_mem_annotation_generator/builder.dart"
     builder_factories: [ "codeGenerator" ]
-    build_extensions: { '{{}}.g.dart': [ '{{}}.mem.dart' ] }
+    build_extensions: { '.mem.g.dart': [ '.mem.dart' ] }
     auto_apply: dependents
-    build_to: cache
+    build_to: source
     applies_builders: [ "source_gen|combining_builder" ]
-    runs_before:
-      - source_gen|combining_builder
