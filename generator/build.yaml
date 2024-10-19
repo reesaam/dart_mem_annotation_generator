@@ -31,4 +31,8 @@ builders:
     build_extensions: { '.mem.g.dart': [ '.mem.dart' ] }
     auto_apply: dependents
     build_to: source
-    applies_builders: [ "source_gen|combining_builder" ]
+#    applies_builders: [ "source_gen|combining_builder" ]
+#    applies_builders: [ "json_serializable|json_serializable" ]
+    runs_before:
+      - json_serializable|json_serializable
+      - source_gen|combining_builder

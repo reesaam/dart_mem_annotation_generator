@@ -1,22 +1,13 @@
 import 'dart:async';
-import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/dart/element/type.dart';
 import 'package:build/src/builder/build_step.dart';
-import 'package:dart_mem_annotation/annotation.dart';
-import 'package:dart_mem_annotation_generator/resources/constants.dart';
 import 'package:source_gen/source_gen.dart';
-import '../components/descriptions_generator.dart';
 import '../components/log.dart';
-import '../models/extracted_info_model.dart';
-import '../extensions/string.dart';
-import '../resources/strings.dart';
 
 class CodeGenerator extends Generator {
 
   /// List Variables to keep the data and then we will use them when generating the code
   /// This way everything, especially generating the code do so much faster and more efficient
   static Set<String> importsList = Set<String>.new();
-  static Set<ExtractedInfoModel> variables = Set<ExtractedInfoModel>.new();
 
   @override
   FutureOr<String?> generate(LibraryReader library, BuildStep buildStep) async {
@@ -62,7 +53,7 @@ class CodeGenerator extends Generator {
       String testCode = '/// ${library.element.source.shortName}\n/// ${library.element.source.fullName}\n\n';
       testCode += '/// ${library.annotatedWith(TypeChecker.fromRuntime(library.element.metadata.runtimeType))}\n';
 
-      testCode += 'part of \'${library.element.librarySource.shortName}\';\n';
+      // testCode += 'part of \'${library.element.librarySource.shortName}\';\n';
 
       for (var e1 in library.allElements) {
         for (var e2 in e1.metadata) {
@@ -70,7 +61,7 @@ class CodeGenerator extends Generator {
         }
       }
 
-      return testCode;
+      return null;
     }
     return null;
   }
