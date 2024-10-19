@@ -4,7 +4,9 @@ import 'package:dart_mem_annotation/annotation.dart';
 import 'sample_inner_class.dart';
 
 part 'test_class.mem.dart';
-// part 'sample_class.mem.g.dart';
+// part 'test_class.mem.g.dart';
+part 'test_class.freezed.dart';
+// part 'test_class.g.dart';
 
 // // @Freezed(toJson: false, fromJson: false)
 // @Mem.entity()
@@ -16,7 +18,7 @@ part 'test_class.mem.dart';
 //   }) = _SampleEntity;
 // }
 
-@Mem.model()
+@Mem.all()
 class Test {
   const Test({this.name, this.description, this.innerClass, this.innerClass2});
   final String? name;
@@ -24,11 +26,11 @@ class Test {
   final InnerTest? innerClass;
   final InnerTest? innerClass2;
 
-  // factory Sample.model() => _$MemSampleModel();
-  // factory Sample.entity() => _$MemSampleEntity();
+  // factory Test.model() => TestModel();
+  // factory Test.entity() => TestEntity();
 }
 
-@Mem.model()
+@Mem.all()
 class InnerTest {
   const InnerTest({this.name, this.description});
   final String? name;
