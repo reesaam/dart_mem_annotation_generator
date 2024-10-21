@@ -6,6 +6,11 @@ part of 'sample_class.dart';
 // Generator: AnnotationBuilder
 // **************************************************************************
 
+/// []
+/// []
+/// []
+/// []
+
 @Freezed(toJson: true, fromJson: true)
 class SampleModel with _$SampleModel {
   const factory SampleModel({

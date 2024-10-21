@@ -6,6 +6,10 @@ part of 'sample_inner_inner_class.dart';
 // Generator: AnnotationBuilder
 // **************************************************************************
 
+/// [{String? name}, {String? description}, {String? longDescription}]
+/// [{String? name}, {String? description}, {String? longDescription}]
+/// [{String? name}, {String? description}, {String? longDescription}]
+
 @Freezed(toJson: true, fromJson: true)
 class InnerInnerSampleModel with _$InnerInnerSampleModel {
   const factory InnerInnerSampleModel({

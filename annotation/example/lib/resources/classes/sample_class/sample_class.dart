@@ -15,9 +15,9 @@ enum SampleEnum {
 
 @Mem.all(withFreezed: true)
 class Sample {
-  const Sample({this.sampleEnum, this.name, this.description, this.innerClass});
-  final SampleEnum? sampleEnum;
-  final String? name;
-  final String? description;
-  final InnerSample? innerClass;
+  // const Sample({this.sampleEnum, this.name, this.description, this.innerClass});
+  SampleEnum? sampleEnum;
+  String? name;
+  String? description;
+  InnerSample? innerClass;
 }

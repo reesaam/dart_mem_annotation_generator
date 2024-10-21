@@ -81,9 +81,11 @@ class AnnotationBuilder extends GeneratorForAnnotation<Mem> {
     GeneratorLog.info(title: 'Add Fields to List');
     List<Element> fields = element.children.where((child) => child.kind == ElementKind.FIELD).toList();
     List<Element> constructors = element.children.where((child) => child.kind == ElementKind.CONSTRUCTOR).toList();
+    GeneratorLog.info(title: 'Constructors', data: constructors.length);
 
     for (var item in fields) {
       GeneratorLog.info(title: 'Check DartType');
+      code += AddCode.addCommentLine(constructors.first.children.toString());
       DartType? selectedVisitorField = _selectVisitorFieldDartType(visitor: visitor, item: item);
       // code += selectedVisitorField == null ? '' : Prints.dartTypeInfo(selectedVisitorField);
 
@@ -94,7 +96,7 @@ class AnnotationBuilder extends GeneratorForAnnotation<Mem> {
         typeString: item.declaration?.toString().split(' ').first,
         isCoreType: selectedVisitorField?.isCoreType,
         isFinal: item.declaration.toString().contains('final'),
-        hasRequired: constructors.first.children.firstWhere((e) => e.name == item.name).declaration.toString().contains('required '),
+        hasRequired: constructors.first.children.isEmpty ? null : constructors.first.children.firstWhere((e) => e.name == item.name).declaration.toString().contains('required '),
         isNullable: item.declaration?.toString().split(' ').first.contains('?'),
         isEnum: selectedVisitorField?.isEnum,
       );
