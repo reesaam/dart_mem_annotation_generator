@@ -1,14 +1,6 @@
 targets:
   $default:
     builders:
-      source_gen|combining_builder:
-        options:
-          build_extensions:
-            '.dart': '.g.dart'
-#      json_serializable|json_serializable:
-#        options:
-#          build_extensions:
-#            '.dart': '.g.dart'
       dart_mem_annotation_generator|dart_mem_annotation_builder:
         enabled: true
 
@@ -21,9 +13,7 @@ builders:
     build_extensions: { '.dart': [ '.mem.dart' ] }
     auto_apply: dependents
     build_to: source
-#    applies_builders: [ "source_gen|combining_builder", "json_serializable|json_serializable" ]
-#    applies_builders: [ "source_gen|combining_builder" ]
-    applies_builders: [ "json_serializable|json_serializable" ]
+    applies_builders: [ "freezed" ]
     runs_before:
-#      - json_serializable|json_serializable
-      - source_gen|combining_builder
+      - json_serializable|json_serializable
+      - freezed
