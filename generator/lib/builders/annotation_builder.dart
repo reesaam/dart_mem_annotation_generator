@@ -5,11 +5,14 @@ import 'package:analyzer/dart/element/visitor.dart';
 import 'package:build/src/builder/build_step.dart';
 import 'package:dart_mem_annotation/annotation.dart';
 import 'package:dart_mem_annotation_generator/components/log.dart';
+import 'package:dart_mem_annotation_generator/extensions/constant_reader.dart';
+import 'package:dart_mem_annotation_generator/extensions/dart_type.dart';
+import 'package:dart_mem_annotation_generator/functions/prints.dart';
 import 'package:source_gen/source_gen.dart';
 
 import '../components/add_class.dart';
 import '../components/add_mapper.dart';
-import '../extensions/string.dart';
+import '../functions/add_code.dart';
 import '../models/variable.dart';
 import '../resources/enums.dart';
 
@@ -24,49 +27,50 @@ import '../resources/enums.dart';
 class AnnotationBuilder extends GeneratorForAnnotation<Mem> {
   @override
   FutureOr<String> generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) async {
-
-    // GeneratorLog.info(title: 'Annotation Found', data: annotation);
+    GeneratorLog.info(title: 'Annotation Found', data: annotation.getName);
     GeneratorLog.info(title: 'Code Generation for Annotation Started');
 
     String code = '';
 
     GeneratorLog.info(title: 'Commenting Started');
-    code = code.addCommentLine('name:  ${element.children[0].name}');
-    code = code.addCommentLine('declaration:  ${element.children[0].declaration}');
-    code = code.addCommentLine('declaration.check:  ${element.children[0].declaration?.toString().split(' ').first}');
-    code = code.addCommentLine('kind:  ${element.children[0].kind}');
-    code = code.addCommentLine('shortName:  ${element.children[0].source?.shortName}');
-    code = code.addCommentLine('fullName:  ${element.children[0].source?.fullName}');
-    code = code.addCommentLine('check:  ${element.children[0]}');
+    // code += AddCode.addCommentLine('name:  ${element.children[0].name}');
+    // code += AddCode.addCommentLine('declaration:  ${element.children[0].declaration}');
+    // code += AddCode.addCommentLine('declaration.check:  ${element.children[0].declaration?.toString().split(' ').first}');
+    // code += AddCode.addCommentLine('kind:  ${element.children[0].kind}');
+    // code += AddCode.addCommentLine('shortName:  ${element.children[0].source?.shortName}');
+    // code += AddCode.addCommentLine('fullName:  ${element.children[0].source?.fullName}');
+    // code += AddCode.addCommentLine('check:  ${element.children[0]}');
     for (var item in element.children) {
-      code = code.addCommentLine('variable: ${item.name} / ${item.declaration} / ${item.kind}');
-      var visitor = ElementVisitor();
-      element.visitChildren(visitor);
-      var key = visitor.fields.keys.first;
-      var val = visitor.fields[visitor.fields.keys.first];
-      var e1 = visitor.fields.values.first;
-      var e2 = element.children.where((e) => e.kind == ElementKind.FIELD).first;
-      code = code.addCommentLine('Visitor Key/Val: ${key} / ${val?.element?.name} / ${e1.element?.displayName}');
-      code = code.addCommentLine('Visitor Fields: ${e1} / ${e1.element} / ${e1.element?.name} / ${e1.element?.displayName}');
-      code = code.addCommentLine('Visitor Element Name: ${e2.name} / ${e2.displayName}');
-      // code = code.addCommentLine('Enum Compare: ${visitor.names.values.firstWhere((e) => e == item.name)}');
+      // code += AddCode.addCommentLine('variable: ${item.name} / ${item.declaration} / ${item.kind}');
+      //   var visitor = ElementVisitor();
+      //   element.visitChildren(visitor);
+      //   var key = visitor.fields.keys.first;
+      //   var val = visitor.fields[visitor.fields.keys.first];
+      //   var e1 = visitor.fields.values.first;
+      //   var e2 = element.children.where((e) => e.kind == ElementKind.FIELD).first;
+      //   // code += AddCode.addCommentLine('Enum Compare: ${visitor.names.values.firstWhere((e) => e == item.name)}');
     }
-    code = code.addCommentLine('\n\n');
+    // code = code.addCommentLine('\n\n');
 
-    code = code.addCommentLine('metadata:');
-    for (var item in element.metadata) {
-      code = code.addCommentLine(item.element?.displayName ?? '');
-      code = code.addCommentLine(item.element?.library?.name ?? '');
-      code = code.addCommentLine(item.element?.library?.displayName ?? '');
-      code = code.addCommentLine(item.element?.library?.parts.toString()?? '');
-      code = code.addCommentLine(item.element?.session?.declaredVariables.variableNames.toString() ?? '');
-      code = code.addCommentLine(item.element?.kind.displayName ?? '');
-      code = code.addCommentLine(item.element?.kind.name ?? '');
-      code = code.addCommentLine(item.element?.name ?? '');
-      code = code.addCommentLine(item.element?.name ?? '');
-      code = code.addCommentLine(item.element?.children.toString() ?? '');
-      code = code.addCommentLine(item.element?.source?.fullName ?? '');
-    }
+    // code += AddCode.addCommentLine(element.displayName ?? '');
+    // code += AddCode.addCommentLine(element.kind.displayName);
+    // code += AddCode.addCommentLine(element.declaration.toString());
+    //
+    // code += AddCode.addCommentLine('metadata:');
+    // for (var item in element.metadata) {
+    //   code += AddCode.addCommentLine(element.metadata.indexOf(item).toString() ?? '');
+    //   code += AddCode.addCommentLine(item.element?.displayName ?? '');
+    //   code += AddCode.addCommentLine(item.element?.library?.name ?? '');
+    //   code += AddCode.addCommentLine(item.element?.library?.displayName ?? '');
+    //   code += AddCode.addCommentLine(item.element?.library?.parts.toString()?? '');
+    //   code += AddCode.addCommentLine(item.element?.session?.declaredVariables.variableNames.toString() ?? '');
+    //   code += AddCode.addCommentLine(item.element?.kind.displayName ?? '');
+    //   code += AddCode.addCommentLine(item.element?.kind.name ?? '');
+    //   code += AddCode.addCommentLine(item.element?.name ?? '');
+    //   code += AddCode.addCommentLine(item.element?.name ?? '');
+    //   code += AddCode.addCommentLine(item.element?.children.toString() ?? '');
+    //   code += AddCode.addCommentLine(item.element?.source?.fullName ?? '');
+    // }
 
     GeneratorLog.info(title: 'Main Code Generation Started...');
     String className = element.name ?? 'UnnamedClass';
@@ -76,28 +80,45 @@ class AnnotationBuilder extends GeneratorForAnnotation<Mem> {
     element.visitChildren(visitor);
     GeneratorLog.info(title: 'Add Fields to List');
     List<Element> fields = element.children.where((child) => child.kind == ElementKind.FIELD).toList();
+    List<Element> constructors = element.children.where((child) => child.kind == ElementKind.CONSTRUCTOR).toList();
+
     for (var item in fields) {
       GeneratorLog.info(title: 'Check DartType');
       DartType? selectedVisitorField = _selectVisitorFieldDartType(visitor: visitor, item: item);
-      GeneratorLog.info(title: 'Set Variable');
+      // code += selectedVisitorField == null ? '' : Prints.dartTypeInfo(selectedVisitorField);
+
+      GeneratorLog.info(title: 'Setting Variable');
       Variable variable = Variable(
         name: item.name ?? 'UnnamedVariable',
-        type: selectedVisitorField?.element.runtimeType,
+        type: selectedVisitorField?.getType,
         typeString: item.declaration?.toString().split(' ').first,
-        isCoreType: selectedVisitorField?.isDartCoreType,
-        isFinal: item.declaration.toString().contains(' final '),
-        isNullable: item.declaration?.toString().split(' ').first.contains('? '),
-        isEnum: selectedVisitorField?.element?.kind == ElementKind.ENUM,
+        isCoreType: selectedVisitorField?.isCoreType,
+        isFinal: item.declaration.toString().contains('final'),
+        hasRequired: constructors.first.children.firstWhere((e) => e.name == item.name).declaration.toString().contains('required '),
+        isNullable: item.declaration?.toString().split(' ').first.contains('?'),
+        isEnum: selectedVisitorField?.isEnum,
       );
       variablesList.add(variable);
     }
 
-    GeneratorLog.info(title: 'Model Class Generation');
-    code += AddClass().generate(className: className, variablesList: variablesList, annotationType: AnnotationTypes.model, freezed: true);
-    GeneratorLog.info(title: 'Entity Class Generation');
-    code += AddClass().generate(className: className, variablesList: variablesList, annotationType: AnnotationTypes.entity, freezed: true);
-    GeneratorLog.info(title: 'Mapper Class Generation');
-    code += AddMapper().generate(className: className, variablesList: variablesList);
+    GeneratorLog.info(title: 'Generating Model Class...');
+    code += AddClass().generate(
+      className: className,
+      variablesList: variablesList,
+      annotationType: AnnotationTypes.model,
+      freezed: annotation.getFreezed,
+      extended: annotation.getIsExtended,
+    );
+    GeneratorLog.info(title: 'Generating Entity Class...');
+    code += AddClass().generate(
+      className: className,
+      variablesList: variablesList,
+      annotationType: AnnotationTypes.entity,
+      freezed: annotation.getFreezed,
+      extended: annotation.getIsExtended,
+    );
+    GeneratorLog.info(title: 'Generating Mapper Class...');
+    code += AddMapper().generate(name: className, variablesList: variablesList);
 
     GeneratorLog.info(title: 'Returning Code');
     return code;
@@ -112,4 +133,3 @@ class ElementVisitor extends SimpleElementVisitor {
   @override
   visitFieldElement(FieldElement element) => fields[element.name] = element.type;
 }
-

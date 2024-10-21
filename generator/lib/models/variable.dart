@@ -5,6 +5,7 @@ class Variable {
   final bool? isCoreType;
   final bool? isNullable;
   final bool? isFinal;
+  final bool? hasRequired;
   final bool? isEnum;
 
   Variable({
@@ -14,6 +15,7 @@ class Variable {
     this.isCoreType,
     this.isNullable,
     this.isFinal,
+    this.hasRequired,
     this.isEnum,
   });
 }

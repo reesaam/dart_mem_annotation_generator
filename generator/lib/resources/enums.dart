@@ -1,10 +1,14 @@
+import 'package:dart_mem_annotation_generator/extensions/string.dart';
+
 enum AnnotationTypes {
   all,
   model,
   entity,
   json,
   api,
-  unknown,
+  unknown;
+
+  String get getClassName => name.capitalizeFirst;
 }
 
 enum ImportDependencies {
