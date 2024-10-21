@@ -4,12 +4,13 @@ targets:
       source_gen|combining_builder:
         options:
           build_extensions:
-            '.mem.g.dart': '.mem.g.dart'
+            '.dart': '.g.dart'
+#      json_serializable|json_serializable:
+#        options:
+#          build_extensions:
+#            '.dart': '.g.dart'
       dart_mem_annotation_generator|dart_mem_annotation_builder:
         enabled: true
-      dart_mem_annotation_generator|dart_mem_code_generator:
-        enabled: true
-
 
 builders:
 
@@ -17,22 +18,12 @@ builders:
   dart_mem_annotation_builder:
     import: "package:dart_mem_annotation_generator/builder.dart"
     builder_factories: [ "annotationBuilder" ]
-    build_extensions: { '.dart': [ '.mem.g.dart' ] }
+    build_extensions: { '.dart': [ '.mem.dart' ] }
     auto_apply: dependents
     build_to: source
-    applies_builders: [ "dart_mem_annotation_generator|dart_mem_code_generator" ]
-    runs_before:
-      - dart_mem_annotation_generator|dart_mem_code_generator
-
-  # Code Generator
-  dart_mem_code_generator:
-    import: "package:dart_mem_annotation_generator/builder.dart"
-    builder_factories: [ "codeGenerator" ]
-    build_extensions: { '.mem.g.dart': [ '.mem.dart' ] }
-    auto_apply: dependents
-    build_to: source
+#    applies_builders: [ "source_gen|combining_builder", "json_serializable|json_serializable" ]
 #    applies_builders: [ "source_gen|combining_builder" ]
-#    applies_builders: [ "json_serializable|json_serializable" ]
+    applies_builders: [ "json_serializable|json_serializable" ]
     runs_before:
-      - json_serializable|json_serializable
+#      - json_serializable|json_serializable
       - source_gen|combining_builder
