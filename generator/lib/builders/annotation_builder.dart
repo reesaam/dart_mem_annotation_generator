@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'package:analyzer/dart/element/type_visitor.dart';
 import 'package:analyzer/dart/element/visitor.dart';
 import 'package:build/src/builder/build_step.dart';
 import 'package:dart_mem_annotation/annotation.dart';
 import 'package:dart_mem_annotation_generator/components/log.dart';
 import 'package:dart_mem_annotation_generator/extensions/constant_reader.dart';
 import 'package:dart_mem_annotation_generator/extensions/dart_type.dart';
+import 'package:dart_mem_annotation_generator/extensions/generator_data.dart';
+import 'package:dart_mem_annotation_generator/extensions/string.dart';
 import 'package:dart_mem_annotation_generator/functions/prints.dart';
+import 'package:dart_mem_annotation_generator/models/generator_data.dart';
 import 'package:source_gen/source_gen.dart';
 
 import '../components/add_class.dart';
@@ -32,106 +36,89 @@ class AnnotationBuilder extends GeneratorForAnnotation<Mem> {
 
     String code = '';
 
-    GeneratorLog.info(title: 'Commenting Started');
-    // code += AddCode.addCommentLine('name:  ${element.children[0].name}');
-    // code += AddCode.addCommentLine('declaration:  ${element.children[0].declaration}');
-    // code += AddCode.addCommentLine('declaration.check:  ${element.children[0].declaration?.toString().split(' ').first}');
-    // code += AddCode.addCommentLine('kind:  ${element.children[0].kind}');
-    // code += AddCode.addCommentLine('shortName:  ${element.children[0].source?.shortName}');
-    // code += AddCode.addCommentLine('fullName:  ${element.children[0].source?.fullName}');
-    // code += AddCode.addCommentLine('check:  ${element.children[0]}');
-    for (var item in element.children) {
-      // code += AddCode.addCommentLine('variable: ${item.name} / ${item.declaration} / ${item.kind}');
-      //   var visitor = ElementVisitor();
-      //   element.visitChildren(visitor);
-      //   var key = visitor.fields.keys.first;
-      //   var val = visitor.fields[visitor.fields.keys.first];
-      //   var e1 = visitor.fields.values.first;
-      //   var e2 = element.children.where((e) => e.kind == ElementKind.FIELD).first;
-      //   // code += AddCode.addCommentLine('Enum Compare: ${visitor.names.values.firstWhere((e) => e == item.name)}');
-    }
-    // code = code.addCommentLine('\n\n');
-
-    // code += AddCode.addCommentLine(element.displayName ?? '');
-    // code += AddCode.addCommentLine(element.kind.displayName);
-    // code += AddCode.addCommentLine(element.declaration.toString());
-    //
-    // code += AddCode.addCommentLine('metadata:');
-    // for (var item in element.metadata) {
-    //   code += AddCode.addCommentLine(element.metadata.indexOf(item).toString() ?? '');
-    //   code += AddCode.addCommentLine(item.element?.displayName ?? '');
-    //   code += AddCode.addCommentLine(item.element?.library?.name ?? '');
-    //   code += AddCode.addCommentLine(item.element?.library?.displayName ?? '');
-    //   code += AddCode.addCommentLine(item.element?.library?.parts.toString()?? '');
-    //   code += AddCode.addCommentLine(item.element?.session?.declaredVariables.variableNames.toString() ?? '');
-    //   code += AddCode.addCommentLine(item.element?.kind.displayName ?? '');
-    //   code += AddCode.addCommentLine(item.element?.kind.name ?? '');
-    //   code += AddCode.addCommentLine(item.element?.name ?? '');
-    //   code += AddCode.addCommentLine(item.element?.name ?? '');
-    //   code += AddCode.addCommentLine(item.element?.children.toString() ?? '');
-    //   code += AddCode.addCommentLine(item.element?.source?.fullName ?? '');
-    // }
-
     GeneratorLog.info(title: 'Main Code Generation Started...');
     String className = element.name ?? 'UnnamedClass';
     List<Variable> variablesList = List<Variable>.empty(growable: true);
-    GeneratorLog.info(title: 'ElementVisitor Started');
     ElementVisitor visitor = ElementVisitor();
     element.visitChildren(visitor);
-    GeneratorLog.info(title: 'Add Fields to List');
     List<Element> fields = element.children.where((child) => child.kind == ElementKind.FIELD).toList();
     List<Element> constructors = element.children.where((child) => child.kind == ElementKind.CONSTRUCTOR).toList();
-    GeneratorLog.info(title: 'Constructors', data: constructors.length);
 
+    // code += AddCode.addCommentLine('fieldElements:  ${visitor.fieldElements}');
+    // code += AddCode.addCommentLine('propertyAccessorElement:  ${visitor.propertyAccessorElement}');
+
+    GeneratorLog.info(title: 'Generating Variables and Checking DartTypes...');
     for (var item in fields) {
-      GeneratorLog.info(title: 'Check DartType');
-      code += AddCode.addCommentLine(constructors.first.children.toString());
-      DartType? selectedVisitorField = _selectVisitorFieldDartType(visitor: visitor, item: item);
+      DartType? selectedVisitorField = visitor.fieldElements[item.name];
       // code += selectedVisitorField == null ? '' : Prints.dartTypeInfo(selectedVisitorField);
 
-      GeneratorLog.info(title: 'Setting Variable');
       Variable variable = Variable(
         name: item.name ?? 'UnnamedVariable',
-        type: selectedVisitorField?.getType,
-        typeString: item.declaration?.toString().split(' ').first,
-        isCoreType: selectedVisitorField?.isCoreType,
+        type: selectedVisitorField,
+        typeString: selectedVisitorField?.toString(),
+        isCoreType: selectedVisitorField?.isDartCoreList == true ? selectedVisitorField?.isCoreTypeFromList : selectedVisitorField?.isCoreType,
         isFinal: item.declaration.toString().contains('final'),
         hasRequired: constructors.first.children.isEmpty ? null : constructors.first.children.firstWhere((e) => e.name == item.name).declaration.toString().contains('required '),
         isNullable: item.declaration?.toString().split(' ').first.contains('?'),
         isEnum: selectedVisitorField?.isEnum,
+        isList: selectedVisitorField?.isDartCoreList,
       );
       variablesList.add(variable);
     }
 
-    GeneratorLog.info(title: 'Generating Model Class...');
-    code += AddClass().generate(
-      className: className,
-      variablesList: variablesList,
-      annotationType: AnnotationTypes.model,
-      freezed: annotation.getFreezed,
-      extended: annotation.getIsExtended,
-    );
-    GeneratorLog.info(title: 'Generating Entity Class...');
-    code += AddClass().generate(
-      className: className,
-      variablesList: variablesList,
-      annotationType: AnnotationTypes.entity,
-      freezed: annotation.getFreezed,
-      extended: annotation.getIsExtended,
-    );
-    GeneratorLog.info(title: 'Generating Mapper Class...');
-    code += AddMapper().generate(name: className, variablesList: variablesList);
+    GeneratorLog.info(title: 'Commenting Started');
+    code += AddCode.addCommentLine('\n');
+    code += AddCode.addCommentLine('  This File is Generated by Mem Generator');
+    code += AddCode.addCommentLine('  [$className] Annotated with [Mem] with [${annotation.getName}] mode');
+    code += AddCode.addCommentLine('  Including:');
+    code += AddCode.addCommentLine('    Model Class, Entity Class and Mapper Class,');
+    code += AddCode.addCommentLine('    Model Classes includes [toJson] and [fromJson] functions, and Entity Classes are not!');
+    code += AddCode.addCommentLine('    Mappers will convert every filed in the class including [SubClasses], they should be annotated as well.');
+    code += AddCode.addCommentLine(
+        '    [Mem] Annotation will generate all these fields for all Classes, so all subclasses should decorated with annotation to generate model, entity and mapper to use them here');
+    code += AddCode.addCommentLine('    [Enums] also supported and they will be detected and count into account for mappers and also json conversion');
+    annotation.getFreezed == true ? code += AddCode.addCommentLine('    Classes are decorated with [Freezed], other functions will generate with [Freezed]') : null;
+    code += AddCode.addSpace();
+    code += AddCode.addCommentLine('  Details:');
+    code += AddCode.addCommentLine('    Class: ${annotation.getAs ?? className}');
+    code += AddCode.addCommentLine('    Constructors Count: ${constructors.length}');
+    code += AddCode.addCommentLine('    Variables Count: ${variablesList.length}');
+    code += AddCode.addSpace();
 
-    GeneratorLog.info(title: 'Returning Code');
+    GeneratorLog.info(title: 'Generating Classes (Model and Entity) for', data: className);
+    code += AddCode.addCommentLine('  ==> Model Class:');
+    GeneratorData generatorData = GeneratorData(
+      className: annotation.getAs ?? className,
+      variablesList: variablesList,
+      isFreezed: annotation.getFreezed,
+      extended: annotation.getIsExtended,
+    );
+
+    code += AddCode.addCommentLine('${generatorData.className}');
+    code += AddCode.addCommentLine('${generatorData.variablesList?.map((e) => e.toString())}');
+    code += AddCode.addCommentLine('${generatorData.isFreezed}');
+    code += AddCode.addCommentLine('${generatorData.extended}');
+    code += AddCode.addCommentLine('${generatorData.imports}');
+    code += AddCode.addCommentLine('${generatorData.annotationType}');
+
+    code += AddClass().generate(generatorData.copyWith(annotationType: AnnotationTypes.model));
+    code += AddCode.addCommentLine('  ==> Entity Class:');
+    code += AddClass().generate(generatorData.copyWith(annotationType: AnnotationTypes.entity));
+    GeneratorLog.info(title: 'Generating Mapper Class for', data: className);
+    code += AddCode.addCommentLine('  ==> Mapper Classes:');
+    code += AddMapper().generate(generatorData);
+
+    GeneratorLog.info(title: 'Completing Code Generation and Preparing Files...');
     return code;
   }
 }
 
-DartType? _selectVisitorFieldDartType({required ElementVisitor visitor, required Element item}) => visitor.fields[visitor.fields.keys.firstWhere((e) => e == item.name)];
-
 class ElementVisitor extends SimpleElementVisitor {
-  Map<String, DartType> fields = {};
+  Map<String, DartType> fieldElements = {};
+  Map<String, PropertyAccessorElement> propertyAccessorElement = {};
 
   @override
-  visitFieldElement(FieldElement element) => fields[element.name] = element.type;
+  visitFieldElement(FieldElement element) => fieldElements[element.name] = element.type.extensionTypeErasure;
+  @override
+  visitPropertyAccessorElement(PropertyAccessorElement element) => propertyAccessorElement[element.name] = element;
 }

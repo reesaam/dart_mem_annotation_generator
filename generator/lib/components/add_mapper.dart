@@ -1,16 +1,20 @@
 import 'package:dart_mem_annotation_generator/extensions/string.dart';
+import 'package:dart_mem_annotation_generator/models/generator_data.dart';
 
+import '../functions/add_code.dart';
 import '../models/variable.dart';
 import '../resources/enums.dart';
 
 class AddMapper {
   List<Variable> variables = List<Variable>.empty(growable: true);
 
-  String generate({List<String>? imports, required String name, required List<Variable> variablesList}) {
-    String className = name.capitalizeFirst;
-    variables = variablesList;
+  String generate(GeneratorData data) {
+    String className = data.className?.capitalizeFirst ?? 'UnnamedClass';
+    variables = data.variablesList ?? [];
     String code = '';
+    code += AddCode.addCommentLine('  ==> Entity to Model Conversion Extension');
     code += _addMapper(className: className, firstType: AnnotationTypes.entity, secondType: AnnotationTypes.model);
+    code += AddCode.addCommentLine('  ==> Model to Entity Conversion Extension');
     code += _addMapper(className: className, firstType: AnnotationTypes.model, secondType: AnnotationTypes.entity);
     return code;
   }

@@ -1,11 +1,14 @@
+import 'package:analyzer/dart/element/type.dart';
+
 class Variable {
   final String name;
   final String? typeString;
-  final Type? type;
+  final DartType? type;
   final bool? isCoreType;
   final bool? isNullable;
   final bool? isFinal;
   final bool? hasRequired;
+  final bool? isList;
   final bool? isEnum;
 
   Variable({
@@ -16,6 +19,7 @@ class Variable {
     this.isNullable,
     this.isFinal,
     this.hasRequired,
+    this.isList,
     this.isEnum,
   });
 }

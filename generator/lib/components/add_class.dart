@@ -1,10 +1,10 @@
-import 'package:dart_mem_annotation_generator/components/log.dart';
 import 'package:dart_mem_annotation_generator/extensions/string.dart';
-import 'package:dart_mem_annotation_generator/functions/prints.dart';
-import 'package:dart_mem_annotation_generator/models/variable.dart';
+import 'package:dart_mem_annotation_generator/models/generator_data.dart';
 
 import '../functions/add_code.dart';
+import '../models/variable.dart';
 import '../resources/enums.dart';
+import 'log.dart';
 
 class AddClass {
   String generatedClassName = '';
@@ -12,36 +12,30 @@ class AddClass {
   AnnotationTypes? type;
   List<Variable> variables = List<Variable>.empty(growable: true);
 
-  String generate({
-    List<String>? imports,
-    required String className,
-    required AnnotationTypes annotationType,
-    required List<Variable> variablesList,
-    bool? freezed,
-    bool? extended,
-  }) {
-    isFreezed = freezed;
-    type = annotationType;
-    variables = variablesList;
+  String generate(GeneratorData data) {
+    isFreezed = data.isFreezed;
+    type = data.annotationType;
+    variables = data.variablesList ?? [];
 
     String generatedClass = '';
     // generatedClass += Prints.variablesList(variables);
 
     GeneratorLog.info(title: 'Generating Class...');
-    generatedClassName = '${className.capitalizeFirst}${type?.name.capitalizeFirst}';
-    generatedClass += AddCode.addLine('${_addImports(imports)}\n');
+    generatedClassName = '${data.className?.capitalizeFirst}${type?.name.capitalizeFirst}';
+    generatedClass += AddCode.addLine('${_addImports(data.imports)}\n');
     if (isFreezed == true) {
       bool jsonGeneration = type == AnnotationTypes.model;
       generatedClass += AddCode.addLine('@Freezed(toJson: ${jsonGeneration.toString()}, fromJson: ${jsonGeneration.toString()})');
       generatedClass += AddCode.addLine('class $generatedClassName with _\$$generatedClassName {');
-      generatedClass += AddCode.addLine('const factory $generatedClassName ({${_addFields(extended: extended)}}) = _$generatedClassName;');
+      generatedClass += AddCode.addLine('const factory $generatedClassName ({${_addFields(extended: data.extended)}}) = _$generatedClassName;');
       if (type == AnnotationTypes.model) {
         generatedClass += AddCode.addLine('\nfactory $generatedClassName.fromJson(Map<String, dynamic> json) => _\$${generatedClassName}FromJson(json);\n');
       }
       generatedClass += AddCode.addLine('}\n\n');
     } else {
       GeneratorLog.info(title: 'Adding Fields');
-      generatedClass += AddCode.addLine('class $generatedClassName ${extended == true ? 'extends $className' : ''} {${_generateConstructor()}\n${_addFields(extended: extended)}\n${type == AnnotationTypes.model ? _generateModelToAndFromJson() : ''}}');
+      generatedClass += AddCode.addLine(
+          'class $generatedClassName ${data.extended == true ? 'extends ${data.className}' : ''} {${_generateConstructor()}\n${_addFields(extended: data.extended)}\n${type == AnnotationTypes.model ? _generateModelToAndFromJson() : ''}}');
     }
 
     return generatedClass;
@@ -72,6 +66,11 @@ class AddClass {
     GeneratorLog.info(title: 'Generating Fields Code');
     String bodyCode = '\n';
     for (Variable variable in variables) {
+      bodyCode += AddCode.addCommentLine('type: ${variable.type}');
+      bodyCode += AddCode.addCommentLine('isList: ${variable.isList}');
+      bodyCode += AddCode.addCommentLine('typeString: ${variable.typeString}');
+      bodyCode += AddCode.addCommentLine('isCoreType: ${variable.isCoreType}');
+      bodyCode += AddCode.addCommentLine('\n');
       isFreezed == true && variable.isEnum == true ? bodyCode += '@JsonEnum()\n' : null;
       bodyCode += isFreezed == true || variable.isFinal == true || extended == true ? 'final ' : '';
       bodyCode += _generateType(variable);
@@ -83,11 +82,18 @@ class AddClass {
 
   String _generateType(Variable variable) {
     String generatedType = '';
-    generatedType = variable.typeString == null
-        ? 'dynamic'
-        : variable.isCoreType == true
-            ? variable.typeString!
-            : '${variable.typeString!.trim()}${type?.name.capitalizeFirst}';
+    if (variable.type == null) {
+      generatedType = 'dynamic';
+    } else if (variable.isList == true) {
+      String innerType = variable.typeString!.replaceAll('List', '').replaceAll('<', '').replaceAll('>', '');
+      generatedType = variable.typeString!.replaceAll(innerType, '${innerType}${variable.isCoreType == true ? '' : type?.name.capitalizeFirst}');
+    } else {
+      if (variable.isCoreType == true) {
+        generatedType = variable.typeString!;
+      } else {
+        generatedType = '${variable.typeString}${type?.name.capitalizeFirst}';
+      }
+    }
     generatedType = generatedType.contains('?') == true ? '${generatedType.replaceFirst('?', '')}?' : generatedType;
     generatedType += ' ';
     return generatedType;
@@ -107,7 +113,7 @@ class AddClass {
     code += AddCode.addLine('Map<String, dynamic> toJson() {');
     code += AddCode.addLine('final map = <String, dynamic>{};');
     for (Variable variable in variables) {
-      code += AddCode.addLine('map[\'${_generateFieldName(variable)}\'] = ${_generateFieldName(variable)};');
+      code += AddCode.addLine('map[\'${_generateFieldName(variable)}\'] = ${_generateFieldToJson(variable)};');
     }
     code += AddCode.addLine('return map;}');
     return code;
@@ -117,9 +123,55 @@ class AddClass {
     String code = '';
     code += AddCode.addLine('$generatedClassName.fromJson(dynamic json) {');
     for (Variable variable in variables) {
-      code += AddCode.addLine('${_generateFieldName(variable)} = json[${_generateFieldName(variable)}];');
+      code += AddCode.addLine('${_generateFieldName(variable)} = ${_generateFieldFromJson(variable)};');
     }
     code += AddCode.addLine('}');
     return code;
   }
+
+  String _generateFieldToJson(Variable variable) {
+    String code = '';
+    if (isFreezed == true) {
+      code += _defaultToJson(variable);
+    } else {
+      if (variable.isCoreType != true) {
+        code += _coreTypeToJson(variable);
+      } else if (variable.isEnum == true) {
+        code += _enumToJson(variable);
+      } else if (variable.isList == true) {
+        code += _listToJson(variable);
+      } else {
+        code += _defaultToJson(variable);
+      }
+    }
+    return code;
+  }
+
+  String _generateFieldFromJson(Variable variable) {
+    String code = '';
+    if (isFreezed == true) {
+      code += _defaultFromJson(variable);
+    } else {
+      if (variable.isCoreType != true) {
+        code += _coreTypeFromJson(variable);
+      } else if (variable.isEnum == true) {
+        code += _enumFromJson(variable);
+      } else if (variable.isList == true) {
+        code += _listFromJson(variable);
+      } else {
+        code += _defaultFromJson(variable);
+      }
+    }
+    return code;
+  }
+
+  String _coreTypeToJson(Variable variable) => '${_generateFieldName(variable)}?.toJson()';
+  String _coreTypeFromJson(Variable variable) => '${variable.typeString?.replaceAll('?', '')}${type?.name.capitalizeFirst}.fromJson(json[\'${_generateFieldName(variable)}\'])';
+  String _listToJson(Variable variable) => '${_generateFieldName(variable)}.map((e) => e.toJson()).toList()';
+  String _listFromJson(Variable variable) =>
+      '(json[${_generateFieldName(variable)}] as List)${variable.isCoreType == true ? '.cast<${variable.typeString}>()' : '.map((e) => ${variable.typeString}.fromJson(e))'}';
+  String _enumToJson(Variable variable) => '${_generateFieldName(variable)}?.name';
+  String _enumFromJson(Variable variable) => '${variable.typeString?.replaceAll('?', '')}.values.firstWhere((e) => e.name == json[\'${_generateFieldName(variable)}\'])';
+  String _defaultToJson(Variable variable) => _generateFieldName(variable);
+  String _defaultFromJson(Variable variable) => 'json[${_generateFieldName(variable)}]';
 }

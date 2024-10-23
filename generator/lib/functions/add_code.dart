@@ -1,3 +1,4 @@
+import 'package:analyzer/dart/element/type.dart';
 import 'package:dart_mem_annotation_generator/extensions/string.dart';
 
 import '../resources/constants.dart';
