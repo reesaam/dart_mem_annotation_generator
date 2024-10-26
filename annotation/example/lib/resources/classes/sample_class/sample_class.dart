@@ -22,5 +22,4 @@ class Sample {
   InnerSample? innerClass;
   List<String>? sampleList;
   List<InnerSample>? innerSampleList;
-  List<List<List<InnerSample>>>? innerSampleNestedList;
 }

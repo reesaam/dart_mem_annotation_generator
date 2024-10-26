@@ -21,25 +21,8 @@ InnerInnerSampleModel _$InnerInnerSampleModelFromJson(
 
 /// @nodoc
 mixin _$InnerInnerSampleModel {
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   String? get name => throw _privateConstructorUsedError;
-
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   String? get description => throw _privateConstructorUsedError;
-
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   String? get longDescription => throw _privateConstructorUsedError;
 
   /// Serializes this InnerInnerSampleModel to a JSON map.
@@ -154,27 +137,10 @@ class _$InnerInnerSampleModelImpl implements _InnerInnerSampleModel {
   factory _$InnerInnerSampleModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$InnerInnerSampleModelImplFromJson(json);
 
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   @override
   final String? name;
-
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   @override
   final String? description;
-
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   @override
   final String? longDescription;
 
@@ -226,27 +192,10 @@ abstract class _InnerInnerSampleModel implements InnerInnerSampleModel {
   factory _InnerInnerSampleModel.fromJson(Map<String, dynamic> json) =
       _$InnerInnerSampleModelImpl.fromJson;
 
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   @override
   String? get name;
-
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   @override
   String? get description;
-
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   @override
   String? get longDescription;
 
@@ -260,25 +209,8 @@ abstract class _InnerInnerSampleModel implements InnerInnerSampleModel {
 
 /// @nodoc
 mixin _$InnerInnerSampleEntity {
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   String? get name => throw _privateConstructorUsedError;
-
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   String? get description => throw _privateConstructorUsedError;
-
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   String? get longDescription => throw _privateConstructorUsedError;
 
   /// Create a copy of InnerInnerSampleEntity
@@ -388,27 +320,10 @@ class _$InnerInnerSampleEntityImpl implements _InnerInnerSampleEntity {
   const _$InnerInnerSampleEntityImpl(
       {this.name, this.description, this.longDescription});
 
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   @override
   final String? name;
-
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   @override
   final String? description;
-
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   @override
   final String? longDescription;
 
@@ -449,27 +364,10 @@ abstract class _InnerInnerSampleEntity implements InnerInnerSampleEntity {
       final String? description,
       final String? longDescription}) = _$InnerInnerSampleEntityImpl;
 
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   @override
   String? get name;
-
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   @override
   String? get description;
-
-  /// type: String?
-  /// isList: false
-  /// typeString: String?
-  /// isCoreType: true
-  ///
   @override
   String? get longDescription;
 
