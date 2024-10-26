@@ -1,6 +1,6 @@
 name: example_for_dart_mem_annotation
 description: A project used to demo the DartModelEntityAnnotationGenerator
-version: 0.0.1
+version: 0.0.2
 homepage: https://www.linkedin.com/in/resam/
 repository: https://github.com/reesaam/dart_mem_annotation_generator.git
 
