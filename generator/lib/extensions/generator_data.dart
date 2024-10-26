@@ -3,6 +3,9 @@ import 'package:dart_mem_annotation_generator/models/generator_data.dart';
 import '../models/variable.dart';
 import '../resources/enums.dart';
 
+/// [GeneratorData] is a model to hold data about generation
+/// we need some data manipulations extension on that
+/// here they are
 extension CopyWith on GeneratorData {
   GeneratorData copyWith({
     String? className,

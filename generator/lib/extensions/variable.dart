@@ -1,6 +1,11 @@
 import 'package:analyzer/dart/element/type.dart';
 import 'package:dart_mem_annotation_generator/models/variable.dart';
 
+/// [Variable] is a model to hold data variables
+/// we need some data manipulations extension on that
+/// here they are
+/// This model has a very very important role in this code generator
+/// everything about variables in the base-class are in this class
 extension CopyWith on Variable {
   Variable copyWith({
     String? name,

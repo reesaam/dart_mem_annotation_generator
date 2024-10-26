@@ -4,6 +4,8 @@ import 'package:dart_mem_annotation_generator/models/variable.dart';
 import '../components/log.dart';
 import 'add_code.dart';
 
+/// This class has some standard function to print data and information in the terminal
+/// it mostly use in the development, pass it
 class Prints {
   static String variablesList(List<Variable> variables) {
     GeneratorLog.info(title: 'Class generation Commenting');

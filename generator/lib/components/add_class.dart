@@ -12,6 +12,19 @@ class AddClass {
   AnnotationTypes? type;
   List<Variable> variables = List<Variable>.empty(growable: true);
 
+  /// This is the main function to generate everything
+  /// at first variables, types and modes of generation will detected and stored
+  /// then everything will generate
+  /// at the first step, classes of [Model] and [Entity] will generate
+  /// (Every class will generate with a Additional name at the end of the name of class [Model] and [Entity])
+  /// then, mappers will generate for both directions of model to entity and entity to model
+  ///
+  /// In Freezed mode all classes will decorated with [@freezed] annotation, of course, freezed annotations are custom, we know that in entities will do not need [toJson] and [fromJson] functions
+  /// so, it should be informed to freezed
+  /// but we have both functions for [Models]
+  ///
+  /// This code generator also support the post-process-code-generation. So, at first, everything will generate, then freezed builder will call to generate everything with its annotation and code-generator
+  ///
   String generate(GeneratorData data) {
     isFreezed = data.isFreezed;
     type = data.annotationType;
@@ -40,6 +53,11 @@ class AddClass {
     return generatedClass;
   }
 
+  /// This function will generate the [Constructor] for the main class
+  /// all input variables should consider in that
+  /// also, we will consider the required variables
+  /// In the Freezed mode, the code generation will be different, every variable should be final and nullable according to its documents
+  /// we also consider non-final or non-nullable variables with required and some other options
   String _generateConstructor() {
     GeneratorLog.info(title: 'Generating Constructor');
     String cb = '\n';
@@ -51,6 +69,8 @@ class AddClass {
     return cb;
   }
 
+  /// All fields will detect and generate with this functions
+  /// Enums, Lists, sub-classes and dart-core variables and also non-dart-core variables will consider
   String _addFields({bool? extended}) {
     GeneratorLog.info(title: 'Generating Fields Code');
     String bodyCode = '\n';
@@ -64,6 +84,8 @@ class AddClass {
     return bodyCode;
   }
 
+  /// This function will detect, generate and reproduce types for any type of type :)
+  /// unknown or not considered types will generate as [dynamic]
   String _generateType(Variable variable) {
     String generatedType = '';
     if (variable.type == null || variable.typeString == null) {
@@ -82,6 +104,8 @@ class AddClass {
     return generatedType;
   }
 
+  /// Field names needs to be generated, especially for sub-classes
+  /// they should have entity or model additional word at the end of them
   String _generateFieldName(Variable variable) => variable.isCoreType == true ? variable.name : '${variable.name}${type?.name.capitalizeFirst}';
 
   String _generateModelToAndFromJson() {
@@ -91,6 +115,7 @@ class AddClass {
     return code;
   }
 
+  /// This function will generate [toJson] for Models
   String _generateModelToJson() {
     String code = '';
     code += AddCode.addLine('Map<String, dynamic> toJson() {');
@@ -98,10 +123,11 @@ class AddClass {
     for (Variable variable in variables) {
       code += AddCode.addLine('map[\'${_generateFieldName(variable)}\'] = ${_generateFieldToJson(variable)};');
     }
-    code += AddCode.addLine('return map;}');
+    code += AddCode.addLine('return map;\n}');
     return code;
   }
 
+  /// This function will generate [fromJson] for Models
   String _generateModelFromJson() {
     String code = '';
     code += AddCode.addLine('$generatedClassName.fromJson(dynamic json) {');
@@ -112,6 +138,7 @@ class AddClass {
     return code;
   }
 
+  /// This function will generate the fields of [toJson] function
   String _generateFieldToJson(Variable variable) {
     String code = '';
     if (isFreezed == true) {
@@ -130,6 +157,7 @@ class AddClass {
     return code;
   }
 
+  /// This function will generate the fields of [fromJson] function
   String _generateFieldFromJson(Variable variable) {
     String code = '';
     if (isFreezed == true) {
@@ -148,6 +176,9 @@ class AddClass {
     return code;
   }
 
+  /// These function are generating everything for above functions, every repetitive job considered as a function
+  /// Also we separate some parts of code and function to improve readability
+  /// Some places, changes are critical, so code generation are depended to function for matter of changes in the future
   String _coreTypeToJson(Variable variable) => '${_generateFieldName(variable)}?.toJson()';
   String _coreTypeFromJson(Variable variable) => '${variable.typeString?.replaceAll('?', '')}${type?.name.capitalizeFirst}.fromJson(json[\'${_generateFieldName(variable)}\'])';
   String _listToJson(Variable variable) => variable.isCoreType == true ? _generateFieldName(variable) : '${_generateFieldName(variable)}?.map((e) => e.toJson()).toList()';

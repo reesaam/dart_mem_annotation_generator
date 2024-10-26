@@ -1,5 +1,7 @@
+/// Very Information about the Package and the Author
 class PackageAuthorInfo {
   static String get packageName => 'dart_mem_annotation';
+  static String get annotationName => 'Mem';
   static String get packageGeneratorName => 'dart_mem_annotation_generator';
   static String get packageNameDescription => 'Dart Mem Annotation Generator';
   static String get packageAddress => '** Will Add in Next Update after First Publish **';

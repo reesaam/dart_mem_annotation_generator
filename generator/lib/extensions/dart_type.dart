@@ -3,6 +3,8 @@ import 'package:analyzer/dart/element/type.dart';
 
 import '../resources/types_library.dart';
 
+/// [DartType]s are playing a crucial role in this code generator
+/// everything will detected with this in Dart
 extension GetData on DartType {
 
   bool get isCoreType => element?.library?.isDartCore == true || element?.kind == ElementKind.ENUM;

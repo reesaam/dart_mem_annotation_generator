@@ -1,9 +1,11 @@
-import 'package:analyzer/dart/element/type.dart';
 import 'package:dart_mem_annotation_generator/extensions/string.dart';
 
 import '../resources/constants.dart';
 import '../resources/enums.dart';
 
+/// This class is a standard function to add code in the code generator
+/// some parts and function are repetitive, so they should be done in a function
+/// especially they will hel in the overall changes in the code-generation
 class AddCode {
   static String addLine(String? line) => '\n${line ?? ''}';
   static String addLineList(List lines) {
