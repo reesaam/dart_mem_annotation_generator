@@ -22,8 +22,6 @@ InnerSampleModel _$InnerSampleModelFromJson(Map<String, dynamic> json) {
 mixin _$InnerSampleModel {
   String? get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  InnerInnerSampleModel? get innerInnerSampleClassModel =>
-      throw _privateConstructorUsedError;
 
   /// Serializes this InnerSampleModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,12 +39,7 @@ abstract class $InnerSampleModelCopyWith<$Res> {
           InnerSampleModel value, $Res Function(InnerSampleModel) then) =
       _$InnerSampleModelCopyWithImpl<$Res, InnerSampleModel>;
   @useResult
-  $Res call(
-      {String? name,
-      String? description,
-      InnerInnerSampleModel? innerInnerSampleClassModel});
-
-  $InnerInnerSampleModelCopyWith<$Res>? get innerInnerSampleClassModel;
+  $Res call({String? name, String? description});
 }
 
 /// @nodoc
@@ -66,7 +59,6 @@ class _$InnerSampleModelCopyWithImpl<$Res, $Val extends InnerSampleModel>
   $Res call({
     Object? name = freezed,
     Object? description = freezed,
-    Object? innerInnerSampleClassModel = freezed,
   }) {
     return _then(_value.copyWith(
       name: freezed == name
@@ -77,26 +69,7 @@ class _$InnerSampleModelCopyWithImpl<$Res, $Val extends InnerSampleModel>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      innerInnerSampleClassModel: freezed == innerInnerSampleClassModel
-          ? _value.innerInnerSampleClassModel
-          : innerInnerSampleClassModel // ignore: cast_nullable_to_non_nullable
-              as InnerInnerSampleModel?,
     ) as $Val);
-  }
-
-  /// Create a copy of InnerSampleModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $InnerInnerSampleModelCopyWith<$Res>? get innerInnerSampleClassModel {
-    if (_value.innerInnerSampleClassModel == null) {
-      return null;
-    }
-
-    return $InnerInnerSampleModelCopyWith<$Res>(
-        _value.innerInnerSampleClassModel!, (value) {
-      return _then(_value.copyWith(innerInnerSampleClassModel: value) as $Val);
-    });
   }
 }
 
@@ -108,13 +81,7 @@ abstract class _$$InnerSampleModelImplCopyWith<$Res>
       __$$InnerSampleModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String? name,
-      String? description,
-      InnerInnerSampleModel? innerInnerSampleClassModel});
-
-  @override
-  $InnerInnerSampleModelCopyWith<$Res>? get innerInnerSampleClassModel;
+  $Res call({String? name, String? description});
 }
 
 /// @nodoc
@@ -132,7 +99,6 @@ class __$$InnerSampleModelImplCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? description = freezed,
-    Object? innerInnerSampleClassModel = freezed,
   }) {
     return _then(_$InnerSampleModelImpl(
       name: freezed == name
@@ -143,10 +109,6 @@ class __$$InnerSampleModelImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      innerInnerSampleClassModel: freezed == innerInnerSampleClassModel
-          ? _value.innerInnerSampleClassModel
-          : innerInnerSampleClassModel // ignore: cast_nullable_to_non_nullable
-              as InnerInnerSampleModel?,
     ));
   }
 }
@@ -154,8 +116,7 @@ class __$$InnerSampleModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$InnerSampleModelImpl implements _InnerSampleModel {
-  const _$InnerSampleModelImpl(
-      {this.name, this.description, this.innerInnerSampleClassModel});
+  const _$InnerSampleModelImpl({this.name, this.description});
 
   factory _$InnerSampleModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$InnerSampleModelImplFromJson(json);
@@ -164,12 +125,10 @@ class _$InnerSampleModelImpl implements _InnerSampleModel {
   final String? name;
   @override
   final String? description;
-  @override
-  final InnerInnerSampleModel? innerInnerSampleClassModel;
 
   @override
   String toString() {
-    return 'InnerSampleModel(name: $name, description: $description, innerInnerSampleClassModel: $innerInnerSampleClassModel)';
+    return 'InnerSampleModel(name: $name, description: $description)';
   }
 
   @override
@@ -179,17 +138,12 @@ class _$InnerSampleModelImpl implements _InnerSampleModel {
             other is _$InnerSampleModelImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.innerInnerSampleClassModel,
-                    innerInnerSampleClassModel) ||
-                other.innerInnerSampleClassModel ==
-                    innerInnerSampleClassModel));
+                other.description == description));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, description, innerInnerSampleClassModel);
+  int get hashCode => Object.hash(runtimeType, name, description);
 
   /// Create a copy of InnerSampleModel
   /// with the given fields replaced by the non-null parameter values.
@@ -210,10 +164,7 @@ class _$InnerSampleModelImpl implements _InnerSampleModel {
 
 abstract class _InnerSampleModel implements InnerSampleModel {
   const factory _InnerSampleModel(
-          {final String? name,
-          final String? description,
-          final InnerInnerSampleModel? innerInnerSampleClassModel}) =
-      _$InnerSampleModelImpl;
+      {final String? name, final String? description}) = _$InnerSampleModelImpl;
 
   factory _InnerSampleModel.fromJson(Map<String, dynamic> json) =
       _$InnerSampleModelImpl.fromJson;
@@ -222,8 +173,6 @@ abstract class _InnerSampleModel implements InnerSampleModel {
   String? get name;
   @override
   String? get description;
-  @override
-  InnerInnerSampleModel? get innerInnerSampleClassModel;
 
   /// Create a copy of InnerSampleModel
   /// with the given fields replaced by the non-null parameter values.
@@ -237,8 +186,6 @@ abstract class _InnerSampleModel implements InnerSampleModel {
 mixin _$InnerSampleEntity {
   String? get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  InnerInnerSampleEntity? get innerInnerSampleClassEntity =>
-      throw _privateConstructorUsedError;
 
   /// Create a copy of InnerSampleEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -253,12 +200,7 @@ abstract class $InnerSampleEntityCopyWith<$Res> {
           InnerSampleEntity value, $Res Function(InnerSampleEntity) then) =
       _$InnerSampleEntityCopyWithImpl<$Res, InnerSampleEntity>;
   @useResult
-  $Res call(
-      {String? name,
-      String? description,
-      InnerInnerSampleEntity? innerInnerSampleClassEntity});
-
-  $InnerInnerSampleEntityCopyWith<$Res>? get innerInnerSampleClassEntity;
+  $Res call({String? name, String? description});
 }
 
 /// @nodoc
@@ -278,7 +220,6 @@ class _$InnerSampleEntityCopyWithImpl<$Res, $Val extends InnerSampleEntity>
   $Res call({
     Object? name = freezed,
     Object? description = freezed,
-    Object? innerInnerSampleClassEntity = freezed,
   }) {
     return _then(_value.copyWith(
       name: freezed == name
@@ -289,26 +230,7 @@ class _$InnerSampleEntityCopyWithImpl<$Res, $Val extends InnerSampleEntity>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      innerInnerSampleClassEntity: freezed == innerInnerSampleClassEntity
-          ? _value.innerInnerSampleClassEntity
-          : innerInnerSampleClassEntity // ignore: cast_nullable_to_non_nullable
-              as InnerInnerSampleEntity?,
     ) as $Val);
-  }
-
-  /// Create a copy of InnerSampleEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $InnerInnerSampleEntityCopyWith<$Res>? get innerInnerSampleClassEntity {
-    if (_value.innerInnerSampleClassEntity == null) {
-      return null;
-    }
-
-    return $InnerInnerSampleEntityCopyWith<$Res>(
-        _value.innerInnerSampleClassEntity!, (value) {
-      return _then(_value.copyWith(innerInnerSampleClassEntity: value) as $Val);
-    });
   }
 }
 
@@ -320,13 +242,7 @@ abstract class _$$InnerSampleEntityImplCopyWith<$Res>
       __$$InnerSampleEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String? name,
-      String? description,
-      InnerInnerSampleEntity? innerInnerSampleClassEntity});
-
-  @override
-  $InnerInnerSampleEntityCopyWith<$Res>? get innerInnerSampleClassEntity;
+  $Res call({String? name, String? description});
 }
 
 /// @nodoc
@@ -344,7 +260,6 @@ class __$$InnerSampleEntityImplCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? description = freezed,
-    Object? innerInnerSampleClassEntity = freezed,
   }) {
     return _then(_$InnerSampleEntityImpl(
       name: freezed == name
@@ -355,10 +270,6 @@ class __$$InnerSampleEntityImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      innerInnerSampleClassEntity: freezed == innerInnerSampleClassEntity
-          ? _value.innerInnerSampleClassEntity
-          : innerInnerSampleClassEntity // ignore: cast_nullable_to_non_nullable
-              as InnerInnerSampleEntity?,
     ));
   }
 }
@@ -366,19 +277,16 @@ class __$$InnerSampleEntityImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$InnerSampleEntityImpl implements _InnerSampleEntity {
-  const _$InnerSampleEntityImpl(
-      {this.name, this.description, this.innerInnerSampleClassEntity});
+  const _$InnerSampleEntityImpl({this.name, this.description});
 
   @override
   final String? name;
   @override
   final String? description;
-  @override
-  final InnerInnerSampleEntity? innerInnerSampleClassEntity;
 
   @override
   String toString() {
-    return 'InnerSampleEntity(name: $name, description: $description, innerInnerSampleClassEntity: $innerInnerSampleClassEntity)';
+    return 'InnerSampleEntity(name: $name, description: $description)';
   }
 
   @override
@@ -388,16 +296,11 @@ class _$InnerSampleEntityImpl implements _InnerSampleEntity {
             other is _$InnerSampleEntityImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.innerInnerSampleClassEntity,
-                    innerInnerSampleClassEntity) ||
-                other.innerInnerSampleClassEntity ==
-                    innerInnerSampleClassEntity));
+                other.description == description));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, description, innerInnerSampleClassEntity);
+  int get hashCode => Object.hash(runtimeType, name, description);
 
   /// Create a copy of InnerSampleEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -411,17 +314,13 @@ class _$InnerSampleEntityImpl implements _InnerSampleEntity {
 
 abstract class _InnerSampleEntity implements InnerSampleEntity {
   const factory _InnerSampleEntity(
-          {final String? name,
-          final String? description,
-          final InnerInnerSampleEntity? innerInnerSampleClassEntity}) =
-      _$InnerSampleEntityImpl;
+      {final String? name,
+      final String? description}) = _$InnerSampleEntityImpl;
 
   @override
   String? get name;
   @override
   String? get description;
-  @override
-  InnerInnerSampleEntity? get innerInnerSampleClassEntity;
 
   /// Create a copy of InnerSampleEntity
   /// with the given fields replaced by the non-null parameter values.

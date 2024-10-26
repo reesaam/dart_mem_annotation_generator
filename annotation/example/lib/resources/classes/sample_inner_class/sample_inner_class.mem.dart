@@ -19,7 +19,7 @@ part of 'sample_inner_class.dart';
 ///   Details:
 ///     Class: InnerSample
 ///     Constructors Count: 1
-///     Variables Count: 3
+///     Variables Count: 2
 
 ///   ==> Model Class:
 @Freezed(toJson: true, fromJson: true)
@@ -27,7 +27,6 @@ class InnerSampleModel with _$InnerSampleModel {
   const factory InnerSampleModel({
     final String? name,
     final String? description,
-    final InnerInnerSampleModel? innerInnerSampleClassModel,
   }) = _InnerSampleModel;
 
   factory InnerSampleModel.fromJson(Map<String, dynamic> json) =>
@@ -40,7 +39,6 @@ class InnerSampleEntity with _$InnerSampleEntity {
   const factory InnerSampleEntity({
     final String? name,
     final String? description,
-    final InnerInnerSampleEntity? innerInnerSampleClassEntity,
   }) = _InnerSampleEntity;
 }
 
@@ -50,7 +48,6 @@ extension MapperExtensionOnInnerSampleEntity on InnerSampleEntity {
   InnerSampleModel get mapper => InnerSampleModel(
         name: name,
         description: description,
-        innerInnerSampleClassModel: innerInnerSampleClassEntity?.mapper,
       );
 }
 
@@ -59,6 +56,5 @@ extension MapperExtensionOnInnerSampleModel on InnerSampleModel {
   InnerSampleEntity get mapper => InnerSampleEntity(
         name: name,
         description: description,
-        innerInnerSampleClassEntity: innerInnerSampleClassModel?.mapper,
       );
 }
