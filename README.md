@@ -1,6 +1,6 @@
 
 <p align="center">
-  Dart Model Entity Mapper (MEM) Annotation
+  Dart Model Entity Mapper (MEM) Annotation Generator
 </p>
 <p align="center">
   <!-- Pub Version -->
@@ -76,8 +76,13 @@ dart pub get
 
 ## Usage
 
+Import Annotation:
 ```dart
 import 'package:dart_mem_annotation/annotation.dart';
+```
+Part Directives should also be provided for Generated Codes on top of dart file:
+```dart
+part '*filename*.mem.dart';
 ```
 
 Add desired `@Annotation` on top of the desired class and set the desired Options.
@@ -86,23 +91,31 @@ Also InnerClasses are supported.
 Such as:
 
 ```dart
-@Mem.all()
-class SomeClass {
-  String? someStringField;
-  bool? someBooleanField;
-  List<String>? someListField;
-  SomeInnerClass? someInnerClass;
-}
+part 'some_file.mem.dart';
 
 @Mem.all()
+class SomeClass {
+  SampleEnum? sampleEnum;
+  String? name;
+  String? description;
+  InnerSample? innerClass;
+  List<String>? sampleList;
+  List<InnerSample>? innerSampleList;
+}
+
+@Mem.all(withFreezed: true)
 class SomeInnerClass {
-  bool active;
-  String someName;
-  String someDescription;
+  const InnerSample({this.name, this.description});
+  final String? name;
+  final String? description;
 }
 ```
-> [!Note]
->
+
+
+> [!Important]
+> 
+> Important for Freezed Class:
+> 
 > InnerClasses if decorated with the annotation they all will have generated Model, Entity and Mappers, but if not, the class itself will use in the main class.
 
 then you should run the `build_runner` to generate the codes and creating related file and include all the pages, controllers, components and repositories in one place and prepared to use.
@@ -110,6 +123,8 @@ You can use
 ```shell
 dart pub run build_runner build --delete-conflicting-outputs
 ```
+
+All files will generate with `*.mem.dart` format.
 
 ### You can check the `/example` for a more complete example, more details and further information.
 
@@ -125,6 +140,15 @@ Available Options:
   - `as`: Change the Name of the Page in the dependencies and use it as another name.
   - `withFreezed`: All Generated Classes will decorate with `@freezed` Annotation, and all Freezed classes will generate after Mem Code Generation.
   - `extendsBaseClass`: **(Not Recommended)** - Generated Classes will `extends` the Original Annotated Class, and without this option all classes will be independent.
+
+> [!Note]
+>
+> All Classes with Freezed Annotation (if your mark `withFreezed` as true) should be provided by its own parts.
+> ```dart
+> part '*filename*.mem.dart'; // For Meme Generator
+> part '*filename*.freezed.dart'; // For Freezed
+> part '*filename*.g.dart'; // For JsonSerializable with Freezed
+> ```
 
 
 ## Docs
