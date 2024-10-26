@@ -13,6 +13,7 @@
   <a href="https://pub.dev/documentation/dart_mem_annotation/latest"><img src="https://img.shields.io/badge/dartdocs-latest-blue.svg" alt="Latest dartdocs"></a>
 </p>
 <p align="center">
+  <a href="https://pub.dev/packages/dart_mem_annotation"><img src="https://img.shields.io/badge/pub-Dart_Mem_Annottaion_on_pub.dev-blue?logo=dart" alt="Pub"></a>
   <a href="https://pub.dev/packages/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/pub-Dart_Mem_Annottaion_Generator_on_pub.dev-blue?logo=dart" alt="Pub"></a>
 </p>
 <p align="center">
