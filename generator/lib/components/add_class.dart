@@ -15,13 +15,13 @@ class AddClass {
   /// This is the main function to generate everything
   /// at first variables, types and modes of generation will detected and stored
   /// then everything will generate
-  /// at the first step, classes of [Model] and [Entity] will generate
-  /// (Every class will generate with a Additional name at the end of the name of class [Model] and [Entity])
+  /// at the first step, classes of `Model` and Entity will generate
+  /// (Every class will generate with a Additional name at the end of the name of class Model and `Entity`)
   /// then, mappers will generate for both directions of model to entity and entity to model
   ///
-  /// In Freezed mode all classes will decorated with [@freezed] annotation, of course, freezed annotations are custom, we know that in entities will do not need [toJson] and [fromJson] functions
+  /// In Freezed mode all classes will decorated with `@freezed` annotation, of course, freezed annotations are custom, we know that in entities will do not need `toJson` and `fromJson` functions
   /// so, it should be informed to freezed
-  /// but we have both functions for [Models]
+  /// but we have both functions for Models
   ///
   /// This code generator also support the post-process-code-generation. So, at first, everything will generate, then freezed builder will call to generate everything with its annotation and code-generator
   ///
