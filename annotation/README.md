@@ -1,18 +1,19 @@
 
 <p align="center">
-  Dart Model Entity Mapper Annotation Generator
+  Dart Model Entity Mapper (MEM) Annotation
 </p>
 <p align="center">
   <!-- Pub Version -->
-  <a href="https://pub.dev/packages/mem_annotation"><img src="https://img.shields.io/pub/v/mem_annotation?logo=dart" alt="PubVersion"></a>
+  <a href="https://pub.dev/packages/dart_mem_annotation"><img src="https://img.shields.io/pub/v/dart_mem_annotation?logo=dart" alt="PubVersion"></a>
   <!-- Pub Points} -->
-  <a href="https://pub.dev/packages/mem_annotation"><img src="https://img.shields.io/pub/points/mem_annotation?logo=dart" alt="PubPoints"></a>
+  <a href="https://pub.dev/packages/dart_mem_annotation"><img src="https://img.shields.io/pub/points/dart_mem_annotation?logo=dart" alt="PubPoints"></a>
   <!-- GitHub Repo -->
-  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/repo-Mem_Annotation-yellowgreen?logo=github" alt="build"></a>
-  <!-- GitHub Stars -->
-  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/github/stars/felangel/bloc.svg?style=flat&logo=github&colorB=deeppink&label=stars" alt="Star on Github"></a>
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/repo-Dart_Mem_Annotation-yellowgreen?logo=github" alt="build"></a>
   <!-- DartDoc -->
-  <a href="https://pub.dev/documentation/mem_annotation/latest"><img src="https://img.shields.io/badge/dartdocs-latest-blue.svg" alt="Latest dartdocs"></a>
+  <a href="https://pub.dev/documentation/dart_mem_annotation/latest"><img src="https://img.shields.io/badge/dartdocs-latest-blue.svg" alt="Latest dartdocs"></a>
+</p>
+<p align="center">
+  <a href="https://pub.dev/packages/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/pub-Dart_Mem_Annottaion_Generator_on_pub.dev-blue?logo=dart" alt="Pub"></a>
 </p>
 <p align="center">
   <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/Android-black?logo=android" alt="android"></a>
@@ -43,12 +44,25 @@ You can use it for Models, APIs and JSONs.
 Add dependencies in the `pubspec.yaml`:
 ```yaml
 dependencies:
-  mem_annotation: ^latest
+  dart_mem_annotation: ^latest
+  
+  # If Freezed Code Generations needed:
+  freezed: ^2.5.7
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   build_runner: ^latest
-  mem_annotation_generator: ^latest
+  dart_mem_annotation_generator: ^latest
+
+  # If Freezed Code Generations needed:
+  freezed_annotation: ^2.4.4
+  json_serializable: ^6.8.0
 ```
+Generator Library Link on pub.dev:
+
+<a href="https://pub.dev/packages/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/pub-Dart_Mem_Annottaion_generator-blue?logo=dart" alt="Pub"></a>
+
+
 
 Get the Changes by:
 ```shell
@@ -62,22 +76,33 @@ dart pub get
 ## Usage
 
 ```dart
-import 'package:mem_annotation/annotation.dart';
+import 'package:dart_mem_annotation/annotation.dart';
 ```
 
 Add desired `@Annotation` on top of the desired class and set the desired Options.
+Also InnerClasses are supported.
 
 Such as:
 
-`HomePage`
 ```dart
-@GetPut.model()
-class SomeModel {}
+@Mem.all()
+class SomeClass {
+  String? someStringField;
+  bool? someBooleanField;
+  List<String>? someListField;
+  SomeInnerClass? someInnerClass;
+}
+
+@Mem.all()
+class SomeInnerClass {
+  bool active;
+  String someName;
+  String someDescription;
+}
 ```
-```dart
-@GetPut.entity()
-class SomeEntity {}
-```
+> [!Note]
+>
+> InnerClasses if decorated with the annotation they all will have generated Model, Entity and Mappers, but if not, the class itself will use in the main class.
 
 then you should run the `build_runner` to generate the codes and creating related file and include all the pages, controllers, components and repositories in one place and prepared to use.
 You can use
@@ -90,26 +115,15 @@ dart pub run build_runner build --delete-conflicting-outputs
 ## Options
 
 You can set some annotations and its Options in the `@Annotation`
+Available Annotations:
+  - `@Mem.all`: Will Generate all options, including Mode, Entity, and Mappers.
+
 Available Options:
-- `@GetPut.page()`
+- `@Mem`
   - `as`: Change the Name of the Page in the dependencies and use it as another name.
-  - `route`: The plugin will generate a default name based on the page's name, but also, you can set a String for the route and the new route will be used. If the `route` has not been set, the default generate route will use.
-  - `isInitial`: You  should set a `initialRoute` for the GetX and the app will start by that page and it's route, so it is mandatory. and you can set your initial page by this flag. The plugin would not throw an exception if you set two or more initial pages, but it will set the first page in the generate pages list that marked as initial page as the default initial route.
-  - `isUnknown`: You can set a unknown route for the GetX and the app will show the page by it's route, if there was a change page without valid route. You can set your unknown page by this flag. The plugin would not throw an exception if you set two or more unknown pages, but it will set the first page in the generate pages list that marked as unknown page as the default unknown route.
-- `@GetPut.controller()`
-    - `as`: Change the Name of the Controller in the dependencies and use it as another name.
-- `@GetPut.component()`
-    - `as`: Change the Name of the Component in the dependencies and use it as another name.
-- `@GetPut.repository()`
-    - `as`: Change the Name of Repository in the dependencies and use it as another name.
+  - `withFreezed`: All Generated Classes will decorate with `@freezed` Annotation, and all Freezed classes will generate after Mem Code Generation.
+  - `extendsBaseClass`: **(Not Recommended)** - Generated Classes will `extends` the Original Annotated Class, and without this option all classes will be independent.
 
-Some Examples:
-
-`Settings:`
-```dart
-@GetPut.page()
-class SettingsPage extends GetView<SettingsController> {}
-```
 
 ## Docs
 <a href="https://github.com/reesaam/dart_mem_annotation_generator/tree/main/generator/doc/api"><img src="https://img.shields.io/badge/GitHub-Docs_Repository-important?logo=github" alt="build"></a>
