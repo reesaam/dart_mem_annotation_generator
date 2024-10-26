@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:analyzer/dart/element/type_visitor.dart';
 import 'package:analyzer/dart/element/visitor.dart';
 import 'package:build/src/builder/build_step.dart';
 import 'package:dart_mem_annotation/annotation.dart';
@@ -9,8 +8,6 @@ import 'package:dart_mem_annotation_generator/components/log.dart';
 import 'package:dart_mem_annotation_generator/extensions/constant_reader.dart';
 import 'package:dart_mem_annotation_generator/extensions/dart_type.dart';
 import 'package:dart_mem_annotation_generator/extensions/generator_data.dart';
-import 'package:dart_mem_annotation_generator/extensions/string.dart';
-import 'package:dart_mem_annotation_generator/functions/prints.dart';
 import 'package:dart_mem_annotation_generator/models/generator_data.dart';
 import 'package:source_gen/source_gen.dart';
 
