@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/model_entity_annotation.iml" filepath="$PROJECT_DIR$/model_entity_annotation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/dart_mem_annotation_generator.iml" filepath="$PROJECT_DIR$/.idea/dart_mem_annotation_generator.iml" />
     </modules>
   </component>
 </project>
