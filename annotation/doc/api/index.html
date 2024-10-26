@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="dart_mem_annotation API docs, for the Dart programming language.">
+  <title>dart_mem_annotation - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://www.resam.site">dart_mem_annotation package</a></li>
+  </ol>
+  <div class="self-name">dart_mem_annotation</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <p align="center">
+  Dart Model Entity Mapper (MEM) Annotation
+</p>
+<p align="center">
+  <!-- Pub Version -->
+  <a href="https://pub.dev/packages/dart_mem_annotation"><img src="https://img.shields.io/pub/v/dart_mem_annotation?logo=dart" alt="PubVersion"></a>
+  <!-- Pub Points} -->
+  <a href="https://pub.dev/packages/dart_mem_annotation"><img src="https://img.shields.io/pub/points/dart_mem_annotation?logo=dart" alt="PubPoints"></a>
+  <!-- GitHub Repo -->
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/repo-Dart_Mem_Annotation-yellowgreen?logo=github" alt="build"></a>
+  <!-- DartDoc -->
+  <a href="https://pub.dev/documentation/dart_mem_annotation/latest"><img src="https://img.shields.io/badge/dartdocs-latest-blue.svg" alt="Latest dartdocs"></a>
+</p>
+<p align="center">
+  <a href="https://pub.dev/packages/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/pub-Dart_Mem_Annottaion_Generator_on_pub.dev-blue?logo=dart" alt="Pub"></a>
+</p>
+<p align="center">
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/Android-black?logo=android" alt="android"></a>
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/iOS-black?logo=apple" alt="ios"></a>
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/Web-black" alt="ios"></a>
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/Linux-black?logo=linux" alt="linux"></a>
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/Windows-black" alt="windows"></a>
+  <a href="https://github.com/reesaam/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/MacOS-black?logo=apple" alt="mac-os"></a>
+</p>
+<p>Mem Annotation Generator is a Code Generator Plugin to Generate Models, Entities and Mapper base on Annotation.
+This package designed to prevent adding extra codes to add Models, Entities and Mappers one by one.
+You can use it for Models, APIs and JSONs.</p>
+<h3 id="contents">Contents:</h3>
+<ul>
+<li><a href="#Getting-Started">Getting Started</a></li>
+<li><a href="#Usage">Usage</a></li>
+<li><a href="#Options">Options</a>
+<ul>
+<li><a href="#Some-Examples">Some Examples</a></li>
+</ul>
+</li>
+<li><a href="#Docs">Docs</a></li>
+<li><a href="#About-Author">About Author</a></li>
+<li><a href="#Packages-and-Dependencies">Packages and Dependencies</a></li>
+<li><a href="#Testing">Testing</a></li>
+</ul>
+<h2 id="getting-started">Getting Started</h2>
+<p>Add dependencies in the <code>pubspec.yaml</code>:</p>
+<pre class="language-yaml"><code class="language-yaml">dependencies:
+  dart_mem_annotation: ^latest
+  
+  # If Freezed Code Generations needed:
+  freezed: ^2.5.7
+  json_annotation: ^4.9.0
+
+dev_dependencies:
+  build_runner: ^latest
+  dart_mem_annotation_generator: ^latest
+
+  # If Freezed Code Generations needed:
+  freezed_annotation: ^2.4.4
+  json_serializable: ^6.8.0
+</code></pre>
+<p>Generator Library Link on pub.dev:</p>
+<p><a href="https://pub.dev/packages/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/pub-Dart_Mem_Annottaion_generator-blue?logo=dart" alt="Pub"></a></p>
+<p>Get the Changes by:</p>
+<pre class="language-shell"><code class="language-shell">flutter pub get
+</code></pre>
+<p>or</p>
+<pre class="language-shell"><code class="language-shell">dart pub get
+</code></pre>
+<h2 id="usage">Usage</h2>
+<pre class="language-dart"><code class="language-dart">import 'package:dart_mem_annotation/annotation.dart';
+</code></pre>
+<p>Add desired <code>@Annotation</code> on top of the desired class and set the desired Options.
+Also InnerClasses are supported.</p>
+<p>Such as:</p>
+<pre class="language-dart"><code class="language-dart">@Mem.all()
+class SomeClass {
+  String? someStringField;
+  bool? someBooleanField;
+  List&lt;String&gt;? someListField;
+  SomeInnerClass? someInnerClass;
+}
+
+@Mem.all()
+class SomeInnerClass {
+  bool active;
+  String someName;
+  String someDescription;
+}
+</code></pre>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title">Note</p>
+<p>InnerClasses if decorated with the annotation they all will have generated Model, Entity and Mappers, but if not, the class itself will use in the main class.</p>
+</div>
+<p>then you should run the <code>build_runner</code> to generate the codes and creating related file and include all the pages, controllers, components and repositories in one place and prepared to use.
+You can use</p>
+<pre class="language-shell"><code class="language-shell">dart pub run build_runner build --delete-conflicting-outputs
+</code></pre>
+<h3 id="you-can-check-the-example-for-a-more-complete-example-more-details-and-further-information">You can check the <code>/example</code> for a more complete example, more details and further information.</h3>
+<h2 id="options">Options</h2>
+<p>You can set some annotations and its Options in the <code>@Annotation</code>
+Available Annotations:</p>
+<ul>
+<li><code>@Mem.all</code>: Will Generate all options, including Mode, Entity, and Mappers.</li>
+</ul>
+<p>Available Options:</p>
+<ul>
+<li><code>@Mem</code>
+<ul>
+<li><code>as</code>: Change the Name of the Page in the dependencies and use it as another name.</li>
+<li><code>withFreezed</code>: All Generated Classes will decorate with <code>@freezed</code> Annotation, and all Freezed classes will generate after Mem Code Generation.</li>
+<li><code>extendsBaseClass</code>: <strong>(Not Recommended)</strong> - Generated Classes will <code>extends</code> the Original Annotated Class, and without this option all classes will be independent.</li>
+</ul>
+</li>
+</ul>
+<h2 id="docs">Docs</h2>
+<p><a href="https://github.com/reesaam/dart_mem_annotation_generator/tree/main/generator/doc/api"><img src="https://img.shields.io/badge/GitHub-Docs_Repository-important?logo=github" alt="build"></a></p>
+<h2 id="about-author">About Author</h2>
+<h3 id="resam-taghipour">Resam Taghipour</h3>
+<p><a href="https://www.resam.site"><img src="https://img.shields.io/badge/Website-resam.site-blue" alt="Pub"></a>
+<a href="https://github.com/reesaam"><img src="https://img.shields.io/badge/GitHub-reesaam-black?style=flat&amp;logo=github&amp;link=https%3A%2F%2Fgithub.com%2Freesaam" alt="account"></a>
+<a href="https://www.linkedin.com/in/resam"><img src="https://img.shields.io/badge/LinkedIn-resam-blue?logo=linkedin" alt="Pub"></a>
+<a href="emailto:resam@resam.site"><img src="https://img.shields.io/badge/Email-resam-important?logo=maildotru" alt="Pub"></a></p>
+<h2 id="packages-and-dependencies">Packages and Dependencies</h2>
+<p><a href="https://dart.dev"><img src="https://img.shields.io/badge/Dart-red?logo=dart" alt="Pub"></a>
+<a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-blue?logo=flutter" alt="Pub"></a>
+<a href="https://pub.dev/packages/build_runner"><img src="https://img.shields.io/badge/pub-BuildRunner-red?logo=dart" alt="Pub"></a>
+<a href="https://pub.dev/packages/dartdoc"><img src="https://img.shields.io/badge/pub-DartDoc-red?logo=dart" alt="Pub"></a></p>
+<h2 id="license">License</h2>
+<p>This project is licensed under the '<strong>BSD-3-Clause</strong>' License - see the LICENSE for details.</p>
+<p><a href="https://pub.dev/packages/dart_model_entity_annotation/license"><img src="https://img.shields.io/badge/LICENSE-blue" alt="Pub"></a></p>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="dart_mem_annotation">
+  <span class="name"><a href="dart_mem_annotation/dart_mem_annotation-library.html">annotation</a></span> 
+
+</dt>
+<dd>Library
+Dart Mem Annotation
+</dd>
+
+        </dl>
+      </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="https://www.resam.site">dart_mem_annotation package</a></li>
+</ol>
+
+
+    <h5 class="hidden-xs"><span class="package-name">dart_mem_annotation</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="dart_mem_annotation/dart_mem_annotation-library.html">annotation</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    dart_mem_annotation
+      0.0.1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
