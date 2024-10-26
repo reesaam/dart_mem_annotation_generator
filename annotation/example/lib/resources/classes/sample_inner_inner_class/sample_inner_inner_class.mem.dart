@@ -22,7 +22,6 @@ part of 'sample_inner_inner_class.dart';
 ///     Variables Count: 3
 
 ///   ==> Model Class:
-
 @Freezed(toJson: true, fromJson: true)
 class InnerInnerSampleModel with _$InnerInnerSampleModel {
   const factory InnerInnerSampleModel({
@@ -36,7 +35,6 @@ class InnerInnerSampleModel with _$InnerInnerSampleModel {
 }
 
 ///   ==> Entity Class:
-
 @Freezed(toJson: false, fromJson: false)
 class InnerInnerSampleEntity with _$InnerInnerSampleEntity {
   const factory InnerInnerSampleEntity({

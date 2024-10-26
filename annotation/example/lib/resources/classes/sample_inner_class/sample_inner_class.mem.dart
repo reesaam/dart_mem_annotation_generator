@@ -14,6 +14,7 @@ part of 'sample_inner_class.dart';
 ///     Mappers will convert every filed in the class including [SubClasses], they should be annotated as well.
 ///     [Mem] Annotation will generate all these fields for all Classes, so all subclasses should decorated with annotation to generate model, entity and mapper to use them here
 ///     [Enums] also supported and they will be detected and count into account for mappers and also json conversion
+///     Classes are decorated with [Freezed], other functions will generate with [Freezed]
 
 ///   Details:
 ///     Class: InnerSample
@@ -21,46 +22,26 @@ part of 'sample_inner_class.dart';
 ///     Variables Count: 3
 
 ///   ==> Model Class:
+@Freezed(toJson: true, fromJson: true)
+class InnerSampleModel with _$InnerSampleModel {
+  const factory InnerSampleModel({
+    final String? name,
+    final String? description,
+    final InnerInnerSampleModel? innerInnerSampleClassModel,
+  }) = _InnerSampleModel;
 
-class InnerSampleModel {
-  InnerSampleModel({
-    this.name,
-    this.description,
-    this.innerInnerSampleClassModel,
-  });
-
-  String? name;
-  String? description;
-  InnerInnerSampleModel? innerInnerSampleClassModel;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['name'] = name;
-    map['description'] = description;
-    map['innerInnerSampleClassModel'] = innerInnerSampleClassModel?.toJson();
-    return map;
-  }
-
-  InnerSampleModel.fromJson(dynamic json) {
-    name = json[name];
-    description = json[description];
-    innerInnerSampleClassModel =
-        InnerInnerSampleModel.fromJson(json['innerInnerSampleClassModel']);
-  }
+  factory InnerSampleModel.fromJson(Map<String, dynamic> json) =>
+      _$InnerSampleModelFromJson(json);
 }
 
 ///   ==> Entity Class:
-
-class InnerSampleEntity {
-  InnerSampleEntity({
-    this.name,
-    this.description,
-    this.innerInnerSampleClassEntity,
-  });
-
-  String? name;
-  String? description;
-  InnerInnerSampleEntity? innerInnerSampleClassEntity;
+@Freezed(toJson: false, fromJson: false)
+class InnerSampleEntity with _$InnerSampleEntity {
+  const factory InnerSampleEntity({
+    final String? name,
+    final String? description,
+    final InnerInnerSampleEntity? innerInnerSampleClassEntity,
+  }) = _InnerSampleEntity;
 }
 
 ///   ==> Mapper Classes:

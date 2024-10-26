@@ -14,6 +14,7 @@ part of 'sample_class.dart';
 ///     Mappers will convert every filed in the class including [SubClasses], they should be annotated as well.
 ///     [Mem] Annotation will generate all these fields for all Classes, so all subclasses should decorated with annotation to generate model, entity and mapper to use them here
 ///     [Enums] also supported and they will be detected and count into account for mappers and also json conversion
+///     Classes are decorated with [Freezed], other functions will generate with [Freezed]
 
 ///   Details:
 ///     Class: Sample
@@ -21,67 +22,32 @@ part of 'sample_class.dart';
 ///     Variables Count: 6
 
 ///   ==> Model Class:
+@Freezed(toJson: true, fromJson: true)
+class SampleModel with _$SampleModel {
+  const factory SampleModel({
+    @JsonEnum() final SampleEnum? sampleEnum,
+    final String? name,
+    final String? description,
+    final InnerSampleModel? innerClassModel,
+    final List<String>? sampleList,
+    final List<InnerSampleModel>? innerSampleListModel,
+  }) = _SampleModel;
 
-class SampleModel {
-  SampleModel({
-    this.sampleEnum,
-    this.name,
-    this.description,
-    this.innerClassModel,
-    this.sampleList,
-    this.innerSampleListModel,
-  });
-
-  SampleEnum? sampleEnum;
-  String? name;
-  String? description;
-  InnerSampleModel? innerClassModel;
-  List<String>? sampleList;
-  List<InnerSampleModel>? innerSampleListModel;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['sampleEnum'] = sampleEnum?.name;
-    map['name'] = name;
-    map['description'] = description;
-    map['innerClassModel'] = innerClassModel?.toJson();
-    map['sampleList'] = sampleList;
-    map['innerSampleListModel'] =
-        innerSampleListModel?.map((e) => e.toJson()).toList();
-    return map;
-  }
-
-  SampleModel.fromJson(dynamic json) {
-    sampleEnum =
-        SampleEnum.values.firstWhere((e) => e.name == json['sampleEnum']);
-    name = json[name];
-    description = json[description];
-    innerClassModel = InnerSampleModel.fromJson(json['innerClassModel']);
-    sampleList = json[sampleList];
-    innerSampleListModel = (json[innerSampleListModel] as List)
-        .map((e) => InnerSampleModel.fromJson(e))
-        .toList();
-  }
+  factory SampleModel.fromJson(Map<String, dynamic> json) =>
+      _$SampleModelFromJson(json);
 }
 
 ///   ==> Entity Class:
-
-class SampleEntity {
-  SampleEntity({
-    this.sampleEnum,
-    this.name,
-    this.description,
-    this.innerClassEntity,
-    this.sampleList,
-    this.innerSampleListEntity,
-  });
-
-  SampleEnum? sampleEnum;
-  String? name;
-  String? description;
-  InnerSampleEntity? innerClassEntity;
-  List<String>? sampleList;
-  List<InnerSampleEntity>? innerSampleListEntity;
+@Freezed(toJson: false, fromJson: false)
+class SampleEntity with _$SampleEntity {
+  const factory SampleEntity({
+    @JsonEnum() final SampleEnum? sampleEnum,
+    final String? name,
+    final String? description,
+    final InnerSampleEntity? innerClassEntity,
+    final List<String>? sampleList,
+    final List<InnerSampleEntity>? innerSampleListEntity,
+  }) = _SampleEntity;
 }
 
 ///   ==> Mapper Classes:

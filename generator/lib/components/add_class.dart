@@ -22,7 +22,6 @@ class AddClass {
 
     GeneratorLog.info(title: 'Generating Class...');
     generatedClassName = '${data.className?.capitalizeFirst}${type?.name.capitalizeFirst}';
-    generatedClass += AddCode.addLine('${_addImports(data.imports)}\n');
     if (isFreezed == true) {
       bool jsonGeneration = type == AnnotationTypes.model;
       generatedClass += AddCode.addLine('@Freezed(toJson: ${jsonGeneration.toString()}, fromJson: ${jsonGeneration.toString()})');
@@ -37,18 +36,8 @@ class AddClass {
       generatedClass += AddCode.addLine(
           'class $generatedClassName ${data.extended == true ? 'extends ${data.className}' : ''} {${_generateConstructor()}\n${_addFields(extended: data.extended)}\n${type == AnnotationTypes.model ? _generateModelToAndFromJson() : ''}}');
     }
-
+    GeneratorLog.info(title: 'Classes Generation Finished...');
     return generatedClass;
-  }
-
-  String _addImports(List<String>? pathList) {
-    String imports = '';
-    if (pathList != null) {
-      for (String path in pathList) {
-        imports += AddCode.addLine('import \'${path}\';\n');
-      }
-    }
-    return imports;
   }
 
   String _generateConstructor() {
@@ -162,8 +151,9 @@ class AddClass {
   String _coreTypeToJson(Variable variable) => '${_generateFieldName(variable)}?.toJson()';
   String _coreTypeFromJson(Variable variable) => '${variable.typeString?.replaceAll('?', '')}${type?.name.capitalizeFirst}.fromJson(json[\'${_generateFieldName(variable)}\'])';
   String _listToJson(Variable variable) => variable.isCoreType == true ? _generateFieldName(variable) : '${_generateFieldName(variable)}?.map((e) => e.toJson()).toList()';
-  String _listFromJson(Variable variable) =>
-      variable.isCoreType == true ? 'json[${_generateFieldName(variable)}]' : '(json[${_generateFieldName(variable)}] as List).map((e) => ${_getListInnerType(variable)}${type?.name.capitalizeFirst}.fromJson(e)).toList()';
+  String _listFromJson(Variable variable) => variable.isCoreType == true
+      ? 'json[${_generateFieldName(variable)}]'
+      : '(json[${_generateFieldName(variable)}] as List).map((e) => ${_getListInnerType(variable)}${type?.name.capitalizeFirst}.fromJson(e)).toList()';
   String _enumToJson(Variable variable) => '${_generateFieldName(variable)}?.name';
   String _enumFromJson(Variable variable) => '${variable.typeString?.replaceAll('?', '')}.values.firstWhere((e) => e.name == json[\'${_generateFieldName(variable)}\'])';
   String _defaultToJson(Variable variable) => _generateFieldName(variable);

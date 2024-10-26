@@ -1,6 +1,5 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:dart_mem_annotation_generator/components/log.dart';
 
 import '../resources/types_library.dart';
 
