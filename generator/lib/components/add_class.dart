@@ -66,11 +66,6 @@ class AddClass {
     GeneratorLog.info(title: 'Generating Fields Code');
     String bodyCode = '\n';
     for (Variable variable in variables) {
-      bodyCode += AddCode.addCommentLine('type: ${variable.type}');
-      bodyCode += AddCode.addCommentLine('isList: ${variable.isList}');
-      bodyCode += AddCode.addCommentLine('typeString: ${variable.typeString}');
-      bodyCode += AddCode.addCommentLine('isCoreType: ${variable.isCoreType}');
-      bodyCode += AddCode.addCommentLine('\n');
       isFreezed == true && variable.isEnum == true ? bodyCode += '@JsonEnum()\n' : null;
       bodyCode += isFreezed == true || variable.isFinal == true || extended == true ? 'final ' : '';
       bodyCode += _generateType(variable);
@@ -82,11 +77,10 @@ class AddClass {
 
   String _generateType(Variable variable) {
     String generatedType = '';
-    if (variable.type == null) {
+    if (variable.type == null || variable.typeString == null) {
       generatedType = 'dynamic';
     } else if (variable.isList == true) {
-      String innerType = variable.typeString!.replaceAll('List', '').replaceAll('<', '').replaceAll('>', '');
-      generatedType = variable.typeString!.replaceAll(innerType, '${innerType}${variable.isCoreType == true ? '' : type?.name.capitalizeFirst}');
+      generatedType = _getGeneratedListInnerType(variable);
     } else {
       if (variable.isCoreType == true) {
         generatedType = variable.typeString!;
@@ -134,12 +128,12 @@ class AddClass {
     if (isFreezed == true) {
       code += _defaultToJson(variable);
     } else {
-      if (variable.isCoreType != true) {
-        code += _coreTypeToJson(variable);
+      if (variable.isList == true) {
+        code += _listToJson(variable);
       } else if (variable.isEnum == true) {
         code += _enumToJson(variable);
-      } else if (variable.isList == true) {
-        code += _listToJson(variable);
+      } else if (variable.isCoreType != true) {
+        code += _coreTypeToJson(variable);
       } else {
         code += _defaultToJson(variable);
       }
@@ -152,12 +146,12 @@ class AddClass {
     if (isFreezed == true) {
       code += _defaultFromJson(variable);
     } else {
-      if (variable.isCoreType != true) {
-        code += _coreTypeFromJson(variable);
+      if (variable.isList == true) {
+        code += _listFromJson(variable);
       } else if (variable.isEnum == true) {
         code += _enumFromJson(variable);
-      } else if (variable.isList == true) {
-        code += _listFromJson(variable);
+      } else if (variable.isCoreType != true) {
+        code += _coreTypeFromJson(variable);
       } else {
         code += _defaultFromJson(variable);
       }
@@ -167,11 +161,14 @@ class AddClass {
 
   String _coreTypeToJson(Variable variable) => '${_generateFieldName(variable)}?.toJson()';
   String _coreTypeFromJson(Variable variable) => '${variable.typeString?.replaceAll('?', '')}${type?.name.capitalizeFirst}.fromJson(json[\'${_generateFieldName(variable)}\'])';
-  String _listToJson(Variable variable) => '${_generateFieldName(variable)}.map((e) => e.toJson()).toList()';
+  String _listToJson(Variable variable) => variable.isCoreType == true ? _generateFieldName(variable) : '${_generateFieldName(variable)}?.map((e) => e.toJson()).toList()';
   String _listFromJson(Variable variable) =>
-      '(json[${_generateFieldName(variable)}] as List)${variable.isCoreType == true ? '.cast<${variable.typeString}>()' : '.map((e) => ${variable.typeString}.fromJson(e))'}';
+      variable.isCoreType == true ? 'json[${_generateFieldName(variable)}]' : '(json[${_generateFieldName(variable)}] as List).map((e) => ${_getListInnerType(variable)}${type?.name.capitalizeFirst}.fromJson(e)).toList()';
   String _enumToJson(Variable variable) => '${_generateFieldName(variable)}?.name';
   String _enumFromJson(Variable variable) => '${variable.typeString?.replaceAll('?', '')}.values.firstWhere((e) => e.name == json[\'${_generateFieldName(variable)}\'])';
   String _defaultToJson(Variable variable) => _generateFieldName(variable);
   String _defaultFromJson(Variable variable) => 'json[${_generateFieldName(variable)}]';
+  String _getListInnerType(Variable variable) => variable.typeString!.replaceAll('List', '').replaceAll('<', '').replaceAll('>', '').replaceAll('?', '');
+  String _getGeneratedListInnerType(Variable variable) =>
+      variable.typeString!.replaceAll(_getListInnerType(variable), '${_getListInnerType(variable)}${variable.isCoreType == true ? '' : type?.name.capitalizeFirst}');
 }

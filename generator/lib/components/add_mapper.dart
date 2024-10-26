@@ -12,9 +12,9 @@ class AddMapper {
     String className = data.className?.capitalizeFirst ?? 'UnnamedClass';
     variables = data.variablesList ?? [];
     String code = '';
-    code += AddCode.addCommentLine('  ==> Entity to Model Conversion Extension');
+    code += AddCode.addCommentLine('  ==> Entity to Model Mapper Extension');
     code += _addMapper(className: className, firstType: AnnotationTypes.entity, secondType: AnnotationTypes.model);
-    code += AddCode.addCommentLine('  ==> Model to Entity Conversion Extension');
+    code += AddCode.addCommentLine('  ==> Model to Entity Mapper Extension');
     code += _addMapper(className: className, firstType: AnnotationTypes.model, secondType: AnnotationTypes.entity);
     return code;
   }
@@ -26,7 +26,7 @@ class AddMapper {
   }) {
     String firstTypeClassName = '$className${firstType.getClassName}';
     String secondTypeClassName = '$className${secondType.getClassName}';
-    return '\nextension ExtensionOn$firstTypeClassName on $firstTypeClassName {$secondTypeClassName get mapper => $secondTypeClassName(${_addMapperFields(
+    return '\nextension MapperExtensionOn$firstTypeClassName on $firstTypeClassName {$secondTypeClassName get mapper => $secondTypeClassName(${_addMapperFields(
       className: className,
       firstType: secondType,
       secondType: firstType,
@@ -39,14 +39,11 @@ class AddMapper {
     required AnnotationTypes secondType,
   }) {
     String mapperFieldsCode = '';
-    String inputVariableCode = '';
-    String outputVariableCode = '';
     for (Variable variable in variables) {
-      if (variable.isCoreType != true) {
-        inputVariableCode = firstType.getClassName;
-        outputVariableCode = '${secondType.getClassName}?.mapper';
-      }
-      mapperFieldsCode += '${variable.name}$inputVariableCode: ${variable.name}$outputVariableCode,\n';
+      variable.isCoreType == true
+          ? mapperFieldsCode += '${variable.name}: ${variable.name}'
+          : mapperFieldsCode += '${variable.name}${firstType.getClassName}: ${variable.name}${secondType.getClassName}?${variable.isList == true ? '.map((e) => e.mapper).toList()' : '.mapper'}';
+      mapperFieldsCode += ',\n';
     }
     return mapperFieldsCode;
   }
