@@ -117,6 +117,7 @@ dart pub run build_runner build --delete-conflicting-outputs
 You can set some annotations and its Options in the `@Annotation`
 Available Annotations:
   - `@Mem.all`: Will Generate all options, including Mode, Entity, and Mappers.
+  - Other Options are under Develop ...
 
 Available Options:
 - `@Mem`
