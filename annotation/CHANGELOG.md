@@ -15,3 +15,7 @@
 
 # 0.0.3
   - Version Fix
+
+# 0.1.0
+- Changes in Version Compatibility
+- Major Versions Changes

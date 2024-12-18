@@ -118,40 +118,51 @@ dev_dependencies:
 <pre class="language-shell"><code class="language-shell">dart pub get
 </code></pre>
 <h2 id="usage">Usage</h2>
+<p>Import Annotation:</p>
 <pre class="language-dart"><code class="language-dart">import 'package:dart_mem_annotation/annotation.dart';
+</code></pre>
+<p>Part Directives should also be provided for Generated Codes on top of dart file:</p>
+<pre class="language-dart"><code class="language-dart">part '*filename*.mem.dart';
 </code></pre>
 <p>Add desired <code>@Annotation</code> on top of the desired class and set the desired Options.
 Also InnerClasses are supported.</p>
 <p>Such as:</p>
-<pre class="language-dart"><code class="language-dart">@Mem.all()
-class SomeClass {
-  String? someStringField;
-  bool? someBooleanField;
-  List&lt;String&gt;? someListField;
-  SomeInnerClass? someInnerClass;
-}
+<pre class="language-dart"><code class="language-dart">part 'some_file.mem.dart';
 
 @Mem.all()
+class SomeClass {
+  SampleEnum? sampleEnum;
+  String? name;
+  String? description;
+  InnerSample? innerClass;
+  List&lt;String&gt;? sampleList;
+  List&lt;InnerSample&gt;? innerSampleList;
+}
+
+@Mem.all(withFreezed: true)
 class SomeInnerClass {
-  bool active;
-  String someName;
-  String someDescription;
+  const InnerSample({this.name, this.description});
+  final String? name;
+  final String? description;
 }
 </code></pre>
-<div class="markdown-alert markdown-alert-note">
-<p class="markdown-alert-title">Note</p>
+<div class="markdown-alert markdown-alert-important">
+<p class="markdown-alert-title">Important</p>
+<p>Important for Freezed Class:</p>
 <p>InnerClasses if decorated with the annotation they all will have generated Model, Entity and Mappers, but if not, the class itself will use in the main class.</p>
 </div>
 <p>then you should run the <code>build_runner</code> to generate the codes and creating related file and include all the pages, controllers, components and repositories in one place and prepared to use.
 You can use</p>
 <pre class="language-shell"><code class="language-shell">dart pub run build_runner build --delete-conflicting-outputs
 </code></pre>
+<p>All files will generate with <code>*.mem.dart</code> format.</p>
 <h3 id="you-can-check-the-example-for-a-more-complete-example-more-details-and-further-information">You can check the <code>/example</code> for a more complete example, more details and further information.</h3>
 <h2 id="options">Options</h2>
 <p>You can set some annotations and its Options in the <code>@Annotation</code>
 Available Annotations:</p>
 <ul>
 <li><code>@Mem.all</code>: Will Generate all options, including Mode, Entity, and Mappers.</li>
+<li>Other Options are under Develop ...</li>
 </ul>
 <p>Available Options:</p>
 <ul>
@@ -163,6 +174,14 @@ Available Annotations:</p>
 </ul>
 </li>
 </ul>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title">Note</p>
+<p>All Classes with Freezed Annotation (if your mark <code>withFreezed</code> as true) should be provided by its own parts.</p>
+<pre class="language-dart"><code class="language-dart">part '*filename*.mem.dart'; // For Meme Generator
+part '*filename*.freezed.dart'; // For Freezed
+part '*filename*.g.dart'; // For JsonSerializable with Freezed
+</code></pre>
+</div>
 <h2 id="docs">Docs</h2>
 <p><a href="https://github.com/reesaam/dart_mem_annotation_generator/tree/main/generator/doc/api"><img src="https://img.shields.io/badge/GitHub-Docs_Repository-important?logo=github" alt="build"></a></p>
 <h2 id="about-author">About Author</h2>
@@ -227,7 +246,7 @@ Dart Mem Annotation
 <footer>
   <span class="no-break">
     dart_mem_annotation
-      0.0.1
+      0.1.0
   </span>
 
   

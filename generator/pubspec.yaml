@@ -1,27 +1,26 @@
 name: dart_mem_annotation_generator
 description: A Code Generator Plugin to Generate Models, Entities and Mappers base on Annotation. (Generator)
-version: 0.0.3
+version: 0.1.0
 homepage: https://resam.site
 repository: https://github.com/reesaam/dart_mem_annotation_generator.git
 funding:
   - https://resam.site
 
 environment:
-  sdk: ^3.5.3
+  sdk: ">=3.4.0 <4.0.0"
 
 dependencies:
   analyzer: ^6.4.1
   build: ^2.4.1
-  build_runner: ^2.4.13
+  build_runner: ^2.4.10
   build_config: ^1.1.1
   build_verify: ^3.1.0
   code_builder: ^4.10.0
   build_test: ^2.2.2
   source_gen: ^1.5.0
-  dart_style: ^2.3.7
+  dart_style: ^2.3.2
   dartdoc: ^8.0.8
-  dart_mem_annotation:
-    path: ../annotation/
+  dart_mem_annotation: ^0.1.0
 
 dev_dependencies:
   lints: ^4.0.0

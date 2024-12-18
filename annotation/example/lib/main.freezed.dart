@@ -23,12 +23,8 @@ mixin _$InnerSampleModel {
   String? get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
 
-  /// Serializes this InnerSampleModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of InnerSampleModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $InnerSampleModelCopyWith<InnerSampleModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,8 +48,6 @@ class _$InnerSampleModelCopyWithImpl<$Res, $Val extends InnerSampleModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of InnerSampleModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,8 +86,6 @@ class __$$InnerSampleModelImplCopyWithImpl<$Res>
       $Res Function(_$InnerSampleModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of InnerSampleModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -141,13 +133,11 @@ class _$InnerSampleModelImpl implements _InnerSampleModel {
                 other.description == description));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, name, description);
 
-  /// Create a copy of InnerSampleModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$InnerSampleModelImplCopyWith<_$InnerSampleModelImpl> get copyWith =>
@@ -173,11 +163,8 @@ abstract class _InnerSampleModel implements InnerSampleModel {
   String? get name;
   @override
   String? get description;
-
-  /// Create a copy of InnerSampleModel
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$InnerSampleModelImplCopyWith<_$InnerSampleModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -187,9 +174,7 @@ mixin _$InnerSampleEntity {
   String? get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
 
-  /// Create a copy of InnerSampleEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $InnerSampleEntityCopyWith<InnerSampleEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -213,8 +198,6 @@ class _$InnerSampleEntityCopyWithImpl<$Res, $Val extends InnerSampleEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of InnerSampleEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -253,8 +236,6 @@ class __$$InnerSampleEntityImplCopyWithImpl<$Res>
       $Res Function(_$InnerSampleEntityImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of InnerSampleEntity
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -302,9 +283,7 @@ class _$InnerSampleEntityImpl implements _InnerSampleEntity {
   @override
   int get hashCode => Object.hash(runtimeType, name, description);
 
-  /// Create a copy of InnerSampleEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$InnerSampleEntityImplCopyWith<_$InnerSampleEntityImpl> get copyWith =>
@@ -321,11 +300,8 @@ abstract class _InnerSampleEntity implements InnerSampleEntity {
   String? get name;
   @override
   String? get description;
-
-  /// Create a copy of InnerSampleEntity
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$InnerSampleEntityImplCopyWith<_$InnerSampleEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
