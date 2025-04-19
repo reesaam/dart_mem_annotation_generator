@@ -126,7 +126,7 @@ extension MapperExtensionOnSampleModel on SampleModel {
 
 ///   ==> Model Class:
 @Freezed(toJson: true, fromJson: true)
-class InnerSampleModel with _$InnerSampleModel {
+abstract class InnerSampleModel with _$InnerSampleModel {
   const factory InnerSampleModel({
     final String? name,
     final String? description,
@@ -138,7 +138,7 @@ class InnerSampleModel with _$InnerSampleModel {
 
 ///   ==> Entity Class:
 @Freezed(toJson: false, fromJson: false)
-class InnerSampleEntity with _$InnerSampleEntity {
+abstract class InnerSampleEntity with _$InnerSampleEntity {
   const factory InnerSampleEntity({
     final String? name,
     final String? description,

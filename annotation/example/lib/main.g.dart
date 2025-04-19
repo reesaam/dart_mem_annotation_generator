@@ -6,15 +6,13 @@ part of 'main.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$InnerSampleModelImpl _$$InnerSampleModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$InnerSampleModelImpl(
+_InnerSampleModel _$InnerSampleModelFromJson(Map<String, dynamic> json) =>
+    _InnerSampleModel(
       name: json['name'] as String?,
       description: json['description'] as String?,
     );
 
-Map<String, dynamic> _$$InnerSampleModelImplToJson(
-        _$InnerSampleModelImpl instance) =>
+Map<String, dynamic> _$InnerSampleModelToJson(_InnerSampleModel instance) =>
     <String, dynamic>{
       'name': instance.name,
       'description': instance.description,

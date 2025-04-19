@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,96 +10,77 @@ part of 'main.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-InnerSampleModel _$InnerSampleModelFromJson(Map<String, dynamic> json) {
-  return _InnerSampleModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$InnerSampleModel {
-  String? get name => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
+  String? get name;
+  String? get description;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $InnerSampleModelCopyWith<InnerSampleModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $InnerSampleModelCopyWith<$Res> {
-  factory $InnerSampleModelCopyWith(
-          InnerSampleModel value, $Res Function(InnerSampleModel) then) =
-      _$InnerSampleModelCopyWithImpl<$Res, InnerSampleModel>;
-  @useResult
-  $Res call({String? name, String? description});
-}
-
-/// @nodoc
-class _$InnerSampleModelCopyWithImpl<$Res, $Val extends InnerSampleModel>
-    implements $InnerSampleModelCopyWith<$Res> {
-  _$InnerSampleModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of InnerSampleModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $InnerSampleModelCopyWith<InnerSampleModel> get copyWith =>
+      _$InnerSampleModelCopyWithImpl<InnerSampleModel>(
+          this as InnerSampleModel, _$identity);
+
+  /// Serializes this InnerSampleModel to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? name = freezed,
-    Object? description = freezed,
-  }) {
-    return _then(_value.copyWith(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is InnerSampleModel &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, description);
+
+  @override
+  String toString() {
+    return 'InnerSampleModel(name: $name, description: $description)';
   }
 }
 
 /// @nodoc
-abstract class _$$InnerSampleModelImplCopyWith<$Res>
-    implements $InnerSampleModelCopyWith<$Res> {
-  factory _$$InnerSampleModelImplCopyWith(_$InnerSampleModelImpl value,
-          $Res Function(_$InnerSampleModelImpl) then) =
-      __$$InnerSampleModelImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $InnerSampleModelCopyWith<$Res> {
+  factory $InnerSampleModelCopyWith(
+          InnerSampleModel value, $Res Function(InnerSampleModel) _then) =
+      _$InnerSampleModelCopyWithImpl;
   @useResult
   $Res call({String? name, String? description});
 }
 
 /// @nodoc
-class __$$InnerSampleModelImplCopyWithImpl<$Res>
-    extends _$InnerSampleModelCopyWithImpl<$Res, _$InnerSampleModelImpl>
-    implements _$$InnerSampleModelImplCopyWith<$Res> {
-  __$$InnerSampleModelImplCopyWithImpl(_$InnerSampleModelImpl _value,
-      $Res Function(_$InnerSampleModelImpl) _then)
-      : super(_value, _then);
+class _$InnerSampleModelCopyWithImpl<$Res>
+    implements $InnerSampleModelCopyWith<$Res> {
+  _$InnerSampleModelCopyWithImpl(this._self, this._then);
 
+  final InnerSampleModel _self;
+  final $Res Function(InnerSampleModel) _then;
+
+  /// Create a copy of InnerSampleModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? name = freezed,
     Object? description = freezed,
   }) {
-    return _then(_$InnerSampleModelImpl(
+    return _then(_self.copyWith(
       name: freezed == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
       description: freezed == description
-          ? _value.description
+          ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -107,148 +89,155 @@ class __$$InnerSampleModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$InnerSampleModelImpl implements _InnerSampleModel {
-  const _$InnerSampleModelImpl({this.name, this.description});
-
-  factory _$InnerSampleModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$InnerSampleModelImplFromJson(json);
+class _InnerSampleModel implements InnerSampleModel {
+  const _InnerSampleModel({this.name, this.description});
+  factory _InnerSampleModel.fromJson(Map<String, dynamic> json) =>
+      _$InnerSampleModelFromJson(json);
 
   @override
   final String? name;
   @override
   final String? description;
 
+  /// Create a copy of InnerSampleModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'InnerSampleModel(name: $name, description: $description)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$InnerSampleModelCopyWith<_InnerSampleModel> get copyWith =>
+      __$InnerSampleModelCopyWithImpl<_InnerSampleModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$InnerSampleModelToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InnerSampleModelImpl &&
+            other is _InnerSampleModel &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name, description);
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$InnerSampleModelImplCopyWith<_$InnerSampleModelImpl> get copyWith =>
-      __$$InnerSampleModelImplCopyWithImpl<_$InnerSampleModelImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$InnerSampleModelImplToJson(
-      this,
-    );
+  String toString() {
+    return 'InnerSampleModel(name: $name, description: $description)';
   }
 }
 
-abstract class _InnerSampleModel implements InnerSampleModel {
-  const factory _InnerSampleModel(
-      {final String? name, final String? description}) = _$InnerSampleModelImpl;
+/// @nodoc
+abstract mixin class _$InnerSampleModelCopyWith<$Res>
+    implements $InnerSampleModelCopyWith<$Res> {
+  factory _$InnerSampleModelCopyWith(
+          _InnerSampleModel value, $Res Function(_InnerSampleModel) _then) =
+      __$InnerSampleModelCopyWithImpl;
+  @override
+  @useResult
+  $Res call({String? name, String? description});
+}
 
-  factory _InnerSampleModel.fromJson(Map<String, dynamic> json) =
-      _$InnerSampleModelImpl.fromJson;
+/// @nodoc
+class __$InnerSampleModelCopyWithImpl<$Res>
+    implements _$InnerSampleModelCopyWith<$Res> {
+  __$InnerSampleModelCopyWithImpl(this._self, this._then);
 
+  final _InnerSampleModel _self;
+  final $Res Function(_InnerSampleModel) _then;
+
+  /// Create a copy of InnerSampleModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String? get name;
-  @override
-  String? get description;
-  @override
-  @JsonKey(ignore: true)
-  _$$InnerSampleModelImplCopyWith<_$InnerSampleModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? name = freezed,
+    Object? description = freezed,
+  }) {
+    return _then(_InnerSampleModel(
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _self.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 mixin _$InnerSampleEntity {
-  String? get name => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
+  String? get name;
+  String? get description;
 
-  @JsonKey(ignore: true)
-  $InnerSampleEntityCopyWith<InnerSampleEntity> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $InnerSampleEntityCopyWith<$Res> {
-  factory $InnerSampleEntityCopyWith(
-          InnerSampleEntity value, $Res Function(InnerSampleEntity) then) =
-      _$InnerSampleEntityCopyWithImpl<$Res, InnerSampleEntity>;
-  @useResult
-  $Res call({String? name, String? description});
-}
-
-/// @nodoc
-class _$InnerSampleEntityCopyWithImpl<$Res, $Val extends InnerSampleEntity>
-    implements $InnerSampleEntityCopyWith<$Res> {
-  _$InnerSampleEntityCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of InnerSampleEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $InnerSampleEntityCopyWith<InnerSampleEntity> get copyWith =>
+      _$InnerSampleEntityCopyWithImpl<InnerSampleEntity>(
+          this as InnerSampleEntity, _$identity);
+
   @override
-  $Res call({
-    Object? name = freezed,
-    Object? description = freezed,
-  }) {
-    return _then(_value.copyWith(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is InnerSampleEntity &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, name, description);
+
+  @override
+  String toString() {
+    return 'InnerSampleEntity(name: $name, description: $description)';
   }
 }
 
 /// @nodoc
-abstract class _$$InnerSampleEntityImplCopyWith<$Res>
-    implements $InnerSampleEntityCopyWith<$Res> {
-  factory _$$InnerSampleEntityImplCopyWith(_$InnerSampleEntityImpl value,
-          $Res Function(_$InnerSampleEntityImpl) then) =
-      __$$InnerSampleEntityImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $InnerSampleEntityCopyWith<$Res> {
+  factory $InnerSampleEntityCopyWith(
+          InnerSampleEntity value, $Res Function(InnerSampleEntity) _then) =
+      _$InnerSampleEntityCopyWithImpl;
   @useResult
   $Res call({String? name, String? description});
 }
 
 /// @nodoc
-class __$$InnerSampleEntityImplCopyWithImpl<$Res>
-    extends _$InnerSampleEntityCopyWithImpl<$Res, _$InnerSampleEntityImpl>
-    implements _$$InnerSampleEntityImplCopyWith<$Res> {
-  __$$InnerSampleEntityImplCopyWithImpl(_$InnerSampleEntityImpl _value,
-      $Res Function(_$InnerSampleEntityImpl) _then)
-      : super(_value, _then);
+class _$InnerSampleEntityCopyWithImpl<$Res>
+    implements $InnerSampleEntityCopyWith<$Res> {
+  _$InnerSampleEntityCopyWithImpl(this._self, this._then);
 
+  final InnerSampleEntity _self;
+  final $Res Function(InnerSampleEntity) _then;
+
+  /// Create a copy of InnerSampleEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? name = freezed,
     Object? description = freezed,
   }) {
-    return _then(_$InnerSampleEntityImpl(
+    return _then(_self.copyWith(
       name: freezed == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
       description: freezed == description
-          ? _value.description
+          ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -257,24 +246,27 @@ class __$$InnerSampleEntityImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InnerSampleEntityImpl implements _InnerSampleEntity {
-  const _$InnerSampleEntityImpl({this.name, this.description});
+class _InnerSampleEntity implements InnerSampleEntity {
+  const _InnerSampleEntity({this.name, this.description});
 
   @override
   final String? name;
   @override
   final String? description;
 
+  /// Create a copy of InnerSampleEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'InnerSampleEntity(name: $name, description: $description)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$InnerSampleEntityCopyWith<_InnerSampleEntity> get copyWith =>
+      __$InnerSampleEntityCopyWithImpl<_InnerSampleEntity>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InnerSampleEntityImpl &&
+            other is _InnerSampleEntity &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description));
@@ -283,25 +275,50 @@ class _$InnerSampleEntityImpl implements _InnerSampleEntity {
   @override
   int get hashCode => Object.hash(runtimeType, name, description);
 
-  @JsonKey(ignore: true)
+  @override
+  String toString() {
+    return 'InnerSampleEntity(name: $name, description: $description)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$InnerSampleEntityCopyWith<$Res>
+    implements $InnerSampleEntityCopyWith<$Res> {
+  factory _$InnerSampleEntityCopyWith(
+          _InnerSampleEntity value, $Res Function(_InnerSampleEntity) _then) =
+      __$InnerSampleEntityCopyWithImpl;
+  @override
+  @useResult
+  $Res call({String? name, String? description});
+}
+
+/// @nodoc
+class __$InnerSampleEntityCopyWithImpl<$Res>
+    implements _$InnerSampleEntityCopyWith<$Res> {
+  __$InnerSampleEntityCopyWithImpl(this._self, this._then);
+
+  final _InnerSampleEntity _self;
+  final $Res Function(_InnerSampleEntity) _then;
+
+  /// Create a copy of InnerSampleEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$InnerSampleEntityImplCopyWith<_$InnerSampleEntityImpl> get copyWith =>
-      __$$InnerSampleEntityImplCopyWithImpl<_$InnerSampleEntityImpl>(
-          this, _$identity);
+  $Res call({
+    Object? name = freezed,
+    Object? description = freezed,
+  }) {
+    return _then(_InnerSampleEntity(
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _self.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
-abstract class _InnerSampleEntity implements InnerSampleEntity {
-  const factory _InnerSampleEntity(
-      {final String? name,
-      final String? description}) = _$InnerSampleEntityImpl;
-
-  @override
-  String? get name;
-  @override
-  String? get description;
-  @override
-  @JsonKey(ignore: true)
-  _$$InnerSampleEntityImplCopyWith<_$InnerSampleEntityImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

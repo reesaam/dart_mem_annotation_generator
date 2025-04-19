@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:dart_mem_annotation/annotation.dart';
+import 'package:dart_mem_annotation/dart_mem_annotation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'main.mem.dart';
@@ -18,7 +18,7 @@ enum SampleEnum {
 }
 
 @Mem.all()
-class Sample {
+abstract class Sample {
   SampleEnum? sampleEnum;
   String? name;
   String? description;
@@ -28,7 +28,7 @@ class Sample {
 }
 
 @Mem.all(withFreezed: true)
-class InnerSample {
+abstract class InnerSample {
   const InnerSample({this.name, this.description});
   final String? name;
   final String? description;
