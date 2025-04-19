@@ -19,3 +19,8 @@
 # 0.1.0
 - Changes in Version Compatibility
 - Major Versions Changes
+
+# 0.1.1
+- Changes in Version Compatibility
+- Annotation Location rename to prevent conflicts
+- Migrate to Freezed 3.x.x
