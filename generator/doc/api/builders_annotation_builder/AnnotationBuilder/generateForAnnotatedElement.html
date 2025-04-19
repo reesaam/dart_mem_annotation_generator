@@ -16,15 +16,11 @@
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
-
   
 </head>
 
-
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
-
 <div id="overlay-under-drawer"></div>
-
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
@@ -50,7 +46,6 @@
   </div>
 </header>
 <main>
-
 <div
     id="dartdoc-main-content"
     class="main-content"
@@ -64,14 +59,13 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.5.3/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
-
-<span class="returntype"><a href="https://api.dart.dev/stable/3.5.3/dart-async/FutureOr-class.html">FutureOr</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/3.5.3/dart-core/String-class.html">String</a></span>&gt;</span></span>
-<span class="name ">generateForAnnotatedElement</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="generateForAnnotatedElement-param-element"><span class="type-annotation"><a href="https://pub.dev/documentation/analyzer/6.8.0/dart_element_element/Element-class.html">Element</a></span> <span class="parameter-name">element</span>, </span></li>
-<li><span class="parameter" id="generateForAnnotatedElement-param-annotation"><span class="type-annotation"><a href="https://pub.dev/documentation/source_gen/1.5.0/source_gen/ConstantReader-class.html">ConstantReader</a></span> <span class="parameter-name">annotation</span>, </span></li>
-<li><span class="parameter" id="generateForAnnotatedElement-param-buildStep"><span class="type-annotation"><a href="https://pub.dev/documentation/build/2.4.1/build/BuildStep-class.html">BuildStep</a></span> <span class="parameter-name">buildStep</span></span></li>
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/FutureOr-class.html">FutureOr</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span>
+<span class="name ">generateForAnnotatedElement</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="generateForAnnotatedElement-param-element"><span class="type-annotation"><a href="https://pub.dev/documentation/analyzer/6.11.0/dart_element_element/Element-class.html">Element</a></span> <span class="parameter-name">element</span>, </span></li>
+<li><span class="parameter" id="generateForAnnotatedElement-param-annotation"><span class="type-annotation"><a href="https://pub.dev/documentation/source_gen/2.0.0/source_gen/ConstantReader-class.html">ConstantReader</a></span> <span class="parameter-name">annotation</span>, </span></li>
+<li><span class="parameter" id="generateForAnnotatedElement-param-buildStep"><span class="type-annotation"><a href="https://pub.dev/documentation/build/2.4.2/build/BuildStep-class.html">BuildStep</a></span> <span class="parameter-name">buildStep</span></span></li>
 </ol>)
 
       <div class="features"><span class="feature">override</span></div>
@@ -81,12 +75,18 @@
 <section class="desc markdown">
   <p>Implement to return source code to generate for <code>element</code>.</p>
 <p>This method is invoked based on finding elements annotated with an
-instance of <code>T</code>. The <code>annotation</code> is provided as a <a href="https://pub.dev/documentation/source_gen/1.5.0/source_gen/ConstantReader-class.html">ConstantReader</a>.</p>
-<p>Supported return values include a single <a href="https://api.dart.dev/stable/3.5.3/dart-core/String-class.html">String</a> or multiple <a href="https://api.dart.dev/stable/3.5.3/dart-core/String-class.html">String</a>
-instances within an <a href="https://api.dart.dev/stable/3.5.3/dart-core/Iterable-class.html">Iterable</a> or <a href="https://api.dart.dev/stable/3.5.3/dart-async/Stream-class.html">Stream</a>. It is also valid to return a
-<a href="https://api.dart.dev/stable/3.5.3/dart-async/Future-class.html">Future</a> of <a href="https://api.dart.dev/stable/3.5.3/dart-core/String-class.html">String</a>, <a href="https://api.dart.dev/stable/3.5.3/dart-core/Iterable-class.html">Iterable</a>, or <a href="https://api.dart.dev/stable/3.5.3/dart-async/Stream-class.html">Stream</a>.</p>
+instance of <code>T</code>. The <code>annotation</code> is provided as a <a href="https://pub.dev/documentation/source_gen/2.0.0/source_gen/ConstantReader-class.html">ConstantReader</a>.</p>
+<p>Supported return values include a single <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a> or multiple <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>
+instances within an <a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a> or <a href="https://api.flutter.dev/flutter/dart-core/Stream-class.html">Stream</a>. It is also valid to return a
+<a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a> of <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>, <a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a>, or <a href="https://api.flutter.dev/flutter/dart-core/Stream-class.html">Stream</a>. When multiple values are
+returned through an iterable or stream they will be deduplicated.
+Typically each value will be an independent unit of code and the
+deduplication prevents re-defining the same member multiple times. For
+example if multiple annotated elements may need a specific utility method
+available it can be output for each one, and the single deduplicated
+definition can be shared.</p>
 <p>Implementations should return <code>null</code> when no content is generated. Empty
-or whitespace-only <a href="https://api.dart.dev/stable/3.5.3/dart-core/String-class.html">String</a> instances are also ignored.</p>
+or whitespace-only <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a> instances are also ignored.</p>
 </section>
 
 
@@ -146,14 +146,15 @@ FutureOr&lt;String&gt; generateForAnnotatedElement(Element element, ConstantRead
   code += AddCode.addSpace();
 
   GeneratorLog.info(title: &#39;Generating Classes (Model and Entity) for&#39;, data: className);
-  code += AddCode.addCommentLine(&#39;  ==&gt; Model Class:&#39;);
   GeneratorData generatorData = GeneratorData(
     className: annotation.getAs ?? className,
     variablesList: variablesList,
+    isAbstract: element.declaration?.toString().contains(&#39;abstract&#39;),
     isFreezed: annotation.getFreezed,
     extended: annotation.getIsExtended,
   );
 
+  code += AddCode.addCommentLine(&#39;  ==&gt; Model Class:&#39;);
   code += AddClass().generate(generatorData.copyWith(annotationType: AnnotationTypes.model));
   code += AddCode.addCommentLine(&#39;  ==&gt; Entity Class:&#39;);
   code += AddClass().generate(generatorData.copyWith(annotationType: AnnotationTypes.entity));
@@ -168,7 +169,6 @@ FutureOr&lt;String&gt; generateForAnnotatedElement(Element element, ConstantRead
 
 
   </div> <!-- /.main-content -->
-
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -176,7 +176,6 @@ FutureOr&lt;String&gt; generateForAnnotatedElement(Element element, ConstantRead
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
-
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">dart_mem_annotation_generator</a></li>
     <li><a href="../../builders_annotation_builder/builders_annotation_builder-library.html">annotation_builder</a></li>
@@ -184,33 +183,24 @@ FutureOr&lt;String&gt; generateForAnnotatedElement(Element element, ConstantRead
     <li class="self-crumb">generateForAnnotatedElement method</li>
 </ol>
 
-
     <h5>AnnotationBuilder class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
-
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 </div><!--/.sidebar-offcanvas-->
-
 </main>
-
 <footer>
   <span class="no-break">
     dart_mem_annotation_generator
-      0.0.1
+      0.1.1
   </span>
-
   
 </footer>
-
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
-
-
 </body>
-
 </html>
 
