@@ -47,16 +47,16 @@ dependencies:
   dart_mem_annotation: ^latest
   
   # If Freezed Code Generations needed:
-  freezed: ^2.5.7
-  json_annotation: ^4.9.0
+  freezed: ^latest
+  json_annotation: ^latest
 
 dev_dependencies:
-  build_runner: ^latest
+  build_runner: ^2.4.10
   dart_mem_annotation_generator: ^latest
 
   # If Freezed Code Generations needed:
-  freezed_annotation: ^2.4.4
-  json_serializable: ^6.8.0
+  freezed_annotation: ^latest
+  json_serializable: ^latest
 ```
 Generator Library Link on pub.dev:
 
@@ -77,7 +77,7 @@ dart pub get
 
 Import Annotation:
 ```dart
-import 'package:dart_mem_annotation/annotation.dart';
+import 'package:dart_mem_annotation/dart_mem_annotation.dart';
 ```
 Part Directives should also be provided for Generated Codes on top of dart file:
 ```dart
