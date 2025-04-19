@@ -7,6 +7,7 @@ class GeneratorData {
   final AnnotationTypes? annotationType;
   final List<String>? imports;
   final List<Variable>? variablesList;
+  final bool? isAbstract;
   final bool? isFreezed;
   final bool? extended;
 
@@ -15,6 +16,7 @@ class GeneratorData {
     this.annotationType,
     this.imports,
     this.variablesList,
+    this.isAbstract,
     this.isFreezed,
     this.extended,
   });

@@ -8,6 +8,6 @@ import 'resources/constants.dart';
 Builder annotationBuilder(BuilderOptions options) => PartBuilder(
       [AnnotationBuilder()],
       generatedFilesPrefixForBuilder,
-      formatOutput: (code) => DartFormatter().format(code),
+      formatOutput:(code, languageVersion) => DartFormatter(languageVersion: languageVersion).format(code),
       options: options,
     );

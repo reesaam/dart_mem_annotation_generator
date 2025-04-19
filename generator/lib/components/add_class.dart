@@ -8,6 +8,7 @@ import 'log.dart';
 
 class AddClass {
   String generatedClassName = '';
+  bool? isAbstract;
   bool? isFreezed;
   AnnotationTypes? type;
   List<Variable> variables = List<Variable>.empty(growable: true);
@@ -26,6 +27,7 @@ class AddClass {
   /// This code generator also support the post-process-code-generation. So, at first, everything will generate, then freezed builder will call to generate everything with its annotation and code-generator
   ///
   String generate(GeneratorData data) {
+    isAbstract = data.isAbstract;
     isFreezed = data.isFreezed;
     type = data.annotationType;
     variables = data.variablesList ?? [];
@@ -38,7 +40,7 @@ class AddClass {
     if (isFreezed == true) {
       bool jsonGeneration = type == AnnotationTypes.model;
       generatedClass += AddCode.addLine('@Freezed(toJson: ${jsonGeneration.toString()}, fromJson: ${jsonGeneration.toString()})');
-      generatedClass += AddCode.addLine('class $generatedClassName with _\$$generatedClassName {');
+      generatedClass += AddCode.addLine('abstract class $generatedClassName with _\$$generatedClassName {');
       generatedClass += AddCode.addLine('const factory $generatedClassName ({${_addFields(extended: data.extended)}}) = _$generatedClassName;');
       if (type == AnnotationTypes.model) {
         generatedClass += AddCode.addLine('\nfactory $generatedClassName.fromJson(Map<String, dynamic> json) => _\$${generatedClassName}FromJson(json);\n');
@@ -47,7 +49,7 @@ class AddClass {
     } else {
       GeneratorLog.info(title: 'Adding Fields');
       generatedClass += AddCode.addLine(
-          'class $generatedClassName ${data.extended == true ? 'extends ${data.className}' : ''} {${_generateConstructor()}\n${_addFields(extended: data.extended)}\n${type == AnnotationTypes.model ? _generateModelToAndFromJson() : ''}}');
+          '${isAbstract ?? false ? 'abstract ' : ''}class $generatedClassName ${data.extended == true ? 'extends ${data.className}' : ''} {${_generateConstructor()}\n${_addFields(extended: data.extended)}\n${type == AnnotationTypes.model ? _generateModelToAndFromJson() : ''}}');
     }
     GeneratorLog.info(title: 'Classes Generation Finished...');
     return generatedClass;

@@ -3,7 +3,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/dart/element/visitor.dart';
 import 'package:build/src/builder/build_step.dart';
-import 'package:dart_mem_annotation/annotation.dart';
+import 'package:dart_mem_annotation/dart_mem_annotation.dart';
 import 'package:dart_mem_annotation_generator/components/log.dart';
 import 'package:dart_mem_annotation_generator/extensions/constant_reader.dart';
 import 'package:dart_mem_annotation_generator/extensions/dart_type.dart';
@@ -81,14 +81,15 @@ class AnnotationBuilder extends GeneratorForAnnotation<Mem> {
     code += AddCode.addSpace();
 
     GeneratorLog.info(title: 'Generating Classes (Model and Entity) for', data: className);
-    code += AddCode.addCommentLine('  ==> Model Class:');
     GeneratorData generatorData = GeneratorData(
       className: annotation.getAs ?? className,
       variablesList: variablesList,
+      isAbstract: element.declaration?.toString().contains('abstract'),
       isFreezed: annotation.getFreezed,
       extended: annotation.getIsExtended,
     );
 
+    code += AddCode.addCommentLine('  ==> Model Class:');
     code += AddClass().generate(generatorData.copyWith(annotationType: AnnotationTypes.model));
     code += AddCode.addCommentLine('  ==> Entity Class:');
     code += AddClass().generate(generatorData.copyWith(annotationType: AnnotationTypes.entity));
