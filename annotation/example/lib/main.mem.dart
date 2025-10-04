@@ -23,12 +23,12 @@ part of 'main.dart';
 ///   ==> Model Class:
 class SampleModel {
   SampleModel({
-    this.sampleEnum,
-    this.name,
-    this.description,
-    this.innerClassModel,
-    this.sampleList,
-    this.innerSampleListModel,
+    required this.sampleEnum,
+    required this.name,
+    required this.description,
+    required this.innerClassModel,
+    required this.sampleList,
+    required this.innerSampleListModel,
   });
 
   SampleEnum? sampleEnum;
@@ -66,12 +66,12 @@ class SampleModel {
 ///   ==> Entity Class:
 class SampleEntity {
   SampleEntity({
-    this.sampleEnum,
-    this.name,
-    this.description,
-    this.innerClassEntity,
-    this.sampleList,
-    this.innerSampleListEntity,
+    required this.sampleEnum,
+    required this.name,
+    required this.description,
+    required this.innerClassEntity,
+    required this.sampleList,
+    required this.innerSampleListEntity,
   });
 
   SampleEnum? sampleEnum;

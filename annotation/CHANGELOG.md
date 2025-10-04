@@ -23,3 +23,8 @@
 # 0.1.1
 - Changes in Version Compatibility
 - Annotation Location rename to prevent conflicts
+- 
+# 0.1.2
+- Update Versions
+- Dart 3.9+ Compatibility
+- Analyzer 8+ Compatibility

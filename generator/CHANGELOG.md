@@ -24,3 +24,8 @@
 - Changes in Version Compatibility
 - Annotation Location rename to prevent conflicts
 - Migrate to Freezed 3.x.x
+-
+# 0.1.2
+- Update Versions
+- Dart 3.9+ Compatibility
+- Analyzer 8+ Compatibility

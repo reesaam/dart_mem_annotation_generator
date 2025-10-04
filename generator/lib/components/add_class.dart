@@ -35,7 +35,6 @@ class AddClass {
     String generatedClass = '';
     // generatedClass += Prints.variablesList(variables);
 
-    GeneratorLog.info(title: 'Generating Class...');
     generatedClassName = '${data.className?.capitalizeFirst}${type?.name.capitalizeFirst}';
     if (isFreezed == true) {
       bool jsonGeneration = type == AnnotationTypes.model;
@@ -47,11 +46,9 @@ class AddClass {
       }
       generatedClass += AddCode.addLine('}\n\n');
     } else {
-      GeneratorLog.info(title: 'Adding Fields');
       generatedClass += AddCode.addLine(
           '${isAbstract ?? false ? 'abstract ' : ''}class $generatedClassName ${data.extended == true ? 'extends ${data.className}' : ''} {${_generateConstructor()}\n${_addFields(extended: data.extended)}\n${type == AnnotationTypes.model ? _generateModelToAndFromJson() : ''}}');
     }
-    GeneratorLog.info(title: 'Classes Generation Finished...');
     return generatedClass;
   }
 
@@ -61,7 +58,6 @@ class AddClass {
   /// In the Freezed mode, the code generation will be different, every variable should be final and nullable according to its documents
   /// we also consider non-final or non-nullable variables with required and some other options
   String _generateConstructor() {
-    GeneratorLog.info(title: 'Generating Constructor');
     String cb = '\n';
     String args = '';
     for (Variable variable in variables) {
@@ -74,7 +70,6 @@ class AddClass {
   /// All fields will detect and generate with this functions
   /// Enums, Lists, sub-classes and dart-core variables and also non-dart-core variables will consider
   String _addFields({bool? extended}) {
-    GeneratorLog.info(title: 'Generating Fields Code');
     String bodyCode = '\n';
     for (Variable variable in variables) {
       isFreezed == true && variable.isEnum == true ? bodyCode += '@JsonEnum()\n' : null;
