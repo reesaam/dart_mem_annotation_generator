@@ -31,3 +31,7 @@
 
 # 0.1.3
 - Release **Model** and **Entity** in a seperated Annotations
+
+# 0.1.4
+- Update Versions and libraries
+- Normalize and Downgrade some Packages to have more Compatibility
