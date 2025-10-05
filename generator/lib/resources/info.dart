@@ -12,5 +12,5 @@ class PackageAuthorInfo {
   static String get websiteAddress => 'https://www.resam.site';
   static String get linkedinAddress => 'https://www.linkedin.com/in/resam';
   static String get githubAddress => 'https://github.com/reesaam';
-  static String get version => '0.1.1';
+  static String get version => '0.1.4';
 }

@@ -4,7 +4,6 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/dart/element/visitor2.dart';
 import 'package:build/build.dart';
 import 'package:dart_mem_annotation/dart_mem_annotation.dart';
-import 'package:dart_mem_annotation_generator/components/log.dart';
 import 'package:dart_mem_annotation_generator/extensions/constant_reader.dart';
 import 'package:dart_mem_annotation_generator/extensions/dart_type.dart';
 import 'package:dart_mem_annotation_generator/extensions/generator_data.dart';

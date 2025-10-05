@@ -4,7 +4,6 @@ import 'package:dart_mem_annotation_generator/models/generator_data.dart';
 import '../functions/add_code.dart';
 import '../models/variable.dart';
 import '../resources/enums.dart';
-import 'log.dart';
 
 class AddClass {
   String generatedClassName = '';
