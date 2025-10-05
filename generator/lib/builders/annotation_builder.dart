@@ -80,12 +80,18 @@ class AnnotationBuilder extends GeneratorForAnnotation<Mem> {
       extended: annotation.getIsExtended,
     );
 
-    code += AddCode.addCommentLine('  ==> Model Class:');
-    code += AddClass().generate(generatorData.copyWith(annotationType: AnnotationTypes.model));
-    code += AddCode.addCommentLine('  ==> Entity Class:');
-    code += AddClass().generate(generatorData.copyWith(annotationType: AnnotationTypes.entity));
-    code += AddCode.addCommentLine('  ==> Mapper Classes:');
-    code += AddMapper().generate(generatorData);
+    if (annotation.getName == AnnotationTypes.all.name || annotation.getName == AnnotationTypes.model.name) {
+      code += AddCode.addCommentLine('  ==> Model Class:');
+      code += AddClass().generate(generatorData.copyWith(annotationType: AnnotationTypes.model));
+    }
+    if (annotation.getName == AnnotationTypes.all.name || annotation.getName == AnnotationTypes.entity.name) {
+      code += AddCode.addCommentLine('  ==> Entity Class:');
+      code += AddClass().generate(generatorData.copyWith(annotationType: AnnotationTypes.entity));
+    }
+    if (annotation.getName == AnnotationTypes.all.name) {
+      code += AddCode.addCommentLine('  ==> Mapper Classes:');
+      code += AddMapper().generate(generatorData);
+    }
     return code;
   }
 }

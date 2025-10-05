@@ -17,3 +17,21 @@ Map<String, dynamic> _$InnerSampleModelToJson(_InnerSampleModel instance) =>
       'name': instance.name,
       'description': instance.description,
     };
+
+_SampleMEMModelFreezedModel _$SampleMEMModelFreezedModelFromJson(
+        Map<String, dynamic> json) =>
+    _SampleMEMModelFreezedModel(
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+      sampleList: (json['sampleList'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+    );
+
+Map<String, dynamic> _$SampleMEMModelFreezedModelToJson(
+        _SampleMEMModelFreezedModel instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'description': instance.description,
+      'sampleList': instance.sampleList,
+    };

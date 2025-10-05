@@ -34,6 +34,34 @@ abstract class InnerSample {
   final String? description;
 }
 
+@Mem.model()
+abstract class SampleMEMModel {
+  String? name;
+  String? description;
+  List<String>? sampleList;
+}
+
+@Mem.model(withFreezed: true)
+abstract class SampleMEMModelFreezed {
+  String? name;
+  String? description;
+  List<String>? sampleList;
+}
+
+@Mem.entity()
+abstract class SampleMEMEntity {
+  String? name;
+  String? description;
+  List<String>? sampleList;
+}
+
+@Mem.entity(withFreezed: true)
+abstract class SampleMEMEntityFreezed {
+  String? name;
+  String? description;
+  List<String>? sampleList;
+}
+
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
   @override
