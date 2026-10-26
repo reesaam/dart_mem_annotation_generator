@@ -61,13 +61,14 @@ class AddClass {
           '@Freezed(toJson: ${jsonGeneration.toString()}, fromJson: ${jsonGeneration.toString()}, makeCollectionsUnmodifiable: false)',
         );
         generatedClass += AddCode.addLine('abstract class $generatedListClassName with _\$$generatedListClassName {');
-        generatedClass += AddCode.addLine('factory $generatedListClassName({@Default(<$generatedClassName>[]) List<$generatedClassName> dataList}) = _$generatedListClassName;');
+        generatedClass += AddCode.addLine(
+          'factory $generatedListClassName({@Default(<$generatedClassName>[]) List<$generatedClassName> dataList}) = _$generatedListClassName;',
+        );
         generatedClass += AddCode.addLine(
           '\nfactory $generatedListClassName.fromJson(Map<String, dynamic> json) => _\$${generatedListClassName}FromJson(json);\n',
         );
         generatedClass += AddCode.addLine('}\n\n');
       }
-
     } else {
       generatedClass += AddCode.addLine(
         '${isAbstract ? 'abstract ' : ''}class $generatedClassName ${data.extended == true ? 'extends ${data.className}' : ''} {${_generateConstructor()}\n${_addFields(extended: data.extended)}\n${type == AnnotationTypes.model ? _generateModelToAndFromJson() : ''}}',
@@ -86,7 +87,7 @@ class AddClass {
     String args = '';
     for (Variable variable in variables) {
       args +=
-          '${variable.isNullable != true || variable.hasRequired == true ? 'required' : ''} this.${_generateFieldName(variable)},';
+          '${variable.isNullable == true || variable.hasRequired == true ? 'required' : ''} this.${_generateFieldName(variable)}${variable.initialization.isNullOrEmpty ? Strings.empty : ' = ${variable.initialization}'},';
     }
     cb += '$generatedClassName({$args});';
     return cb;

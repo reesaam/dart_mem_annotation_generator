@@ -1,5 +1,6 @@
 class Strings {
   static String get empty => '';
+  static String get UnderLineChar => '_';
   static String get unknown => 'Unknown';
   static String get model => 'Model';
   static String get entity => 'Entity';

@@ -6,6 +6,7 @@ class Variable {
   final DartType? type;
   final bool? isCoreType;
   final bool? isNullable;
+  final String? initialization;
   final bool? isFinal;
   final bool? hasRequired;
   final bool? isList;
@@ -17,6 +18,7 @@ class Variable {
     this.typeString,
     this.isCoreType,
     this.isNullable,
+    this.initialization,
     this.isFinal,
     this.hasRequired,
     this.isList,

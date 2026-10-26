@@ -23,12 +23,12 @@ part of 'main.dart';
 ///   ==> Model Class:
 class SampleModel {
   SampleModel({
-    required this.sampleEnum,
-    required this.name,
-    required this.description,
-    required this.innerClassModel,
-    required this.sampleList,
-    required this.innerSampleListModel,
+    this.sampleEnum,
+    this.name,
+    this.description,
+    this.innerClassModel,
+    this.sampleList,
+    this.innerSampleListModel,
   });
 
   SampleEnum? sampleEnum;
@@ -68,12 +68,12 @@ class SampleModel {
 ///   ==> Entity Class:
 class SampleEntity {
   SampleEntity({
-    required this.sampleEnum,
-    required this.name,
-    required this.description,
-    required this.innerClassEntity,
-    required this.sampleList,
-    required this.innerSampleListEntity,
+    this.sampleEnum,
+    this.name,
+    this.description,
+    this.innerClassEntity,
+    this.sampleList,
+    this.innerSampleListEntity,
   });
 
   SampleEnum? sampleEnum;
@@ -174,11 +174,7 @@ extension MapperExtensionOnInnerSampleModel on InnerSampleModel {
 
 ///   ==> Model Class:
 class SampleMEMModelModel {
-  SampleMEMModelModel({
-    required this.name,
-    required this.description,
-    required this.sampleList,
-  });
+  SampleMEMModelModel({this.name, this.description, this.sampleList});
 
   String? name;
   String? description;
@@ -286,11 +282,7 @@ abstract class SampleMEMModelFreezedListIncludedModelsList
 
 ///   ==> Entity Class:
 class SampleMEMEntityEntity {
-  SampleMEMEntityEntity({
-    required this.name,
-    required this.description,
-    required this.sampleList,
-  });
+  SampleMEMEntityEntity({this.name, this.description, this.sampleList});
 
   String? name;
   String? description;
