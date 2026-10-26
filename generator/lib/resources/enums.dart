@@ -4,8 +4,8 @@ enum AnnotationTypes {
   all,
   model,
   entity,
-  json,
-  api,
+  // json,
+  // api,
   unknown;
 
   String get getClassName => name.capitalizeFirst;
