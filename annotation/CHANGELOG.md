@@ -35,3 +35,9 @@
 # 0.1.4
 - Update Versions and libraries
 - Normalize and Downgrade some Packages to have more Compatibility
+
+# 0.2.0
+- Update Version and Libraries
+- Update Supported Dart Version
+- ListModel implementation in Freezed Mode
+- Some Fixes
