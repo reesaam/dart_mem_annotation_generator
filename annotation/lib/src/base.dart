@@ -16,11 +16,12 @@ class Mem {
   final AnnotationTypes? type;
   final Type? as;
   final bool? withFreezed;
+  final bool? includeListModel;
   final bool? extendsBaseClass;
 
-  const Mem.all({this.as, this.withFreezed, this.extendsBaseClass}) : type = AnnotationTypes.all;
-  const Mem.model({this.as, this.withFreezed, this.extendsBaseClass}) : type = AnnotationTypes.model;
-  const Mem.entity({this.as, this.withFreezed, this.extendsBaseClass}) : type = AnnotationTypes.entity;
-  const Mem.json({this.as, this.withFreezed}) : type = AnnotationTypes.json, extendsBaseClass = null;
+  const Mem.all({this.as, this.withFreezed, this.extendsBaseClass, this.includeListModel}) : type = AnnotationTypes.all;
+  const Mem.model({this.as, this.withFreezed, this.extendsBaseClass, this.includeListModel}) : type = AnnotationTypes.model;
+  const Mem.entity({this.as, this.withFreezed, this.extendsBaseClass, this.includeListModel}) : type = AnnotationTypes.entity;
+  // const Mem.json({this.as, this.withFreezed}) : type = AnnotationTypes.json, extendsBaseClass = null, includeListModel = null;
   // const Mem.api({this.as, this.withFreezed, this.extendsBaseClass}) : type = AnnotationTypes.api;
 }

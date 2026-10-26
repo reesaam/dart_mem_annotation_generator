@@ -8,6 +8,7 @@ import 'package:dart_mem_annotation_generator/extensions/constant_reader.dart';
 import 'package:dart_mem_annotation_generator/extensions/dart_type.dart';
 import 'package:dart_mem_annotation_generator/extensions/generator_data.dart';
 import 'package:dart_mem_annotation_generator/models/generator_data.dart';
+import 'package:dart_mem_annotation_generator/resources/exceptions.dart';
 import 'package:dart_mem_annotation_generator/resources/info.dart';
 import 'package:dart_mem_annotation_generator/resources/strings.dart';
 import 'package:source_gen/source_gen.dart';
@@ -74,11 +75,17 @@ class AnnotationBuilder extends GeneratorForAnnotation<Mem> {
     GeneratorData generatorData = GeneratorData(
       className: annotation.getAs ?? className,
       variablesList: variablesList,
-      isAbstract: element.name?.toString().contains('abstract'),
+      isAbstract: annotation.getAbstract,
       isFreezed: annotation.getFreezed,
+      isListIncluded: annotation.getIsListIncluded,
       extended: annotation.getIsExtended,
     );
 
+    // Check Generation Validations
+    if (generatorData.isListIncluded && !generatorData.isFreezed)
+      return throw (ExceptionMessages.listIncludedWithoutFreezed);
+
+    // Select Generation Type and Method
     if (annotation.getName == AnnotationTypes.all.name || annotation.getName == AnnotationTypes.model.name) {
       code += AddCode.addCommentLine('  ==> Model Class:');
       code += AddClass().generate(generatorData.copyWith(annotationType: AnnotationTypes.model));

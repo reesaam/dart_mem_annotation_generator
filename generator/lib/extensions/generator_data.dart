@@ -12,7 +12,9 @@ extension CopyWith on GeneratorData {
     AnnotationTypes? annotationType,
     List<String>? imports,
     List<Variable>? variablesList,
+    bool? isAbstract,
     bool? isFreezed,
+    bool? isListIncluded,
     bool? extended,
   }) =>
       GeneratorData(
@@ -20,7 +22,9 @@ extension CopyWith on GeneratorData {
         annotationType: annotationType ?? this.annotationType,
         imports: imports ?? this.imports,
         variablesList: variablesList ?? this.variablesList,
+        isAbstract: isAbstract ?? this.isAbstract,
         isFreezed: isFreezed ?? this.isFreezed,
+        isListIncluded: isListIncluded ?? this.isListIncluded,
         extended: extended ?? this.extended,
       );
 }

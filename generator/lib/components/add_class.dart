@@ -1,16 +1,18 @@
 import 'package:dart_mem_annotation_generator/extensions/string.dart';
 import 'package:dart_mem_annotation_generator/models/generator_data.dart';
+import 'package:dart_mem_annotation_generator/resources/strings.dart';
 
 import '../functions/add_code.dart';
 import '../models/variable.dart';
 import '../resources/enums.dart';
 
 class AddClass {
-  String generatedClassName = '';
-  bool? isAbstract;
-  bool? isFreezed;
-  AnnotationTypes? type;
-  List<Variable> variables = List<Variable>.empty(growable: true);
+  String generatedClassName = Strings.empty;
+  late bool isAbstract;
+  late bool isFreezed;
+  late bool isListIncluded;
+  late AnnotationTypes? type;
+  late List<Variable> variables;
 
   /// This is the main function to generate everything
   /// at first variables, types and modes of generation will detected and stored
@@ -19,34 +21,57 @@ class AddClass {
   /// (Every class will generate with a Additional name at the end of the name of class Model and `Entity`)
   /// then, mappers will generate for both directions of model to entity and entity to model
   ///
-  /// In Freezed mode all classes will decorated with `@freezed` annotation, of course, freezed annotations are custom, we know that in entities will do not need `toJson` and `fromJson` functions
-  /// so, it should be informed to freezed
+  /// In [Freezed] mode all classes will decorated with [@freezed] annotation, of course, [freezed] annotations are custom, we know that in entities will do not need `toJson` and `fromJson` functions
+  /// so, it should be informed to [freezed]
   /// but we have both functions for Models
   ///
-  /// This code generator also support the post-process-code-generation. So, at first, everything will generate, then freezed builder will call to generate everything with its annotation and code-generator
+  /// This code generator also support the post-process-code-generation. So, at first, everything will generate, then [freezed] builder will call to generate everything with its annotation and code-generator
   ///
   String generate(GeneratorData data) {
     isAbstract = data.isAbstract;
     isFreezed = data.isFreezed;
+    isListIncluded = data.isListIncluded;
     type = data.annotationType;
-    variables = data.variablesList ?? [];
+    variables = data.variablesList ?? List<Variable>.empty(growable: true);
 
-    String generatedClass = '';
+    String generatedClass = Strings.empty;
     // generatedClass += Prints.variablesList(variables);
 
     generatedClassName = '${data.className?.capitalizeFirst}${type?.name.capitalizeFirst}';
     if (isFreezed == true) {
       bool jsonGeneration = type == AnnotationTypes.model;
-      generatedClass += AddCode.addLine('@Freezed(toJson: ${jsonGeneration.toString()}, fromJson: ${jsonGeneration.toString()})');
+      generatedClass += AddCode.addLine(
+        '@Freezed(toJson: ${jsonGeneration.toString()}, fromJson: ${jsonGeneration.toString()})',
+      );
       generatedClass += AddCode.addLine('abstract class $generatedClassName with _\$$generatedClassName {');
-      generatedClass += AddCode.addLine('const factory $generatedClassName ({${_addFields(extended: data.extended)}}) = _$generatedClassName;');
+      generatedClass += AddCode.addLine(
+        'const factory $generatedClassName ({${_addFields(extended: data.extended)}}) = _$generatedClassName;',
+      );
       if (type == AnnotationTypes.model) {
-        generatedClass += AddCode.addLine('\nfactory $generatedClassName.fromJson(Map<String, dynamic> json) => _\$${generatedClassName}FromJson(json);\n');
+        generatedClass += AddCode.addLine(
+          '\nfactory $generatedClassName.fromJson(Map<String, dynamic> json) => _\$${generatedClassName}FromJson(json);\n',
+        );
       }
       generatedClass += AddCode.addLine('}\n\n');
+
+      // Add List Class
+      if (isListIncluded) {
+        var generatedListClassName = '${data.className?.capitalizeFirst}${type?.name.capitalizeFirst}sList';
+        generatedClass += AddCode.addLine(
+          '@Freezed(toJson: ${jsonGeneration.toString()}, fromJson: ${jsonGeneration.toString()}, makeCollectionsUnmodifiable: false)',
+        );
+        generatedClass += AddCode.addLine('abstract class $generatedListClassName with _\$$generatedListClassName {');
+        generatedClass += AddCode.addLine('factory $generatedListClassName({@Default(<$generatedClassName>[]) List<$generatedClassName> dataList}) = _$generatedListClassName;');
+        generatedClass += AddCode.addLine(
+          '\nfactory $generatedListClassName.fromJson(Map<String, dynamic> json) => _\$${generatedListClassName}FromJson(json);\n',
+        );
+        generatedClass += AddCode.addLine('}\n\n');
+      }
+
     } else {
       generatedClass += AddCode.addLine(
-          '${isAbstract ?? false ? 'abstract ' : ''}class $generatedClassName ${data.extended == true ? 'extends ${data.className}' : ''} {${_generateConstructor()}\n${_addFields(extended: data.extended)}\n${type == AnnotationTypes.model ? _generateModelToAndFromJson() : ''}}');
+        '${isAbstract ? 'abstract ' : ''}class $generatedClassName ${data.extended == true ? 'extends ${data.className}' : ''} {${_generateConstructor()}\n${_addFields(extended: data.extended)}\n${type == AnnotationTypes.model ? _generateModelToAndFromJson() : ''}}',
+      );
     }
     return generatedClass;
   }
@@ -60,7 +85,8 @@ class AddClass {
     String cb = '\n';
     String args = '';
     for (Variable variable in variables) {
-      args += '${variable.isNullable != true || variable.hasRequired == true ? 'required' : ''} this.${_generateFieldName(variable)},';
+      args +=
+          '${variable.isNullable != true || variable.hasRequired == true ? 'required' : ''} this.${_generateFieldName(variable)},';
     }
     cb += '$generatedClassName({$args});';
     return cb;
@@ -102,7 +128,8 @@ class AddClass {
 
   /// Field names needs to be generated, especially for sub-classes
   /// they should have entity or model additional word at the end of them
-  String _generateFieldName(Variable variable) => variable.isCoreType == true ? variable.name : '${variable.name}${type?.name.capitalizeFirst}';
+  String _generateFieldName(Variable variable) =>
+      variable.isCoreType == true ? variable.name : '${variable.name}${type?.name.capitalizeFirst}';
 
   String _generateModelToAndFromJson() {
     String code = '';
@@ -176,16 +203,32 @@ class AddClass {
   /// Also we separate some parts of code and function to improve readability
   /// Some places, changes are critical, so code generation are depended to function for matter of changes in the future
   String _coreTypeToJson(Variable variable) => '${_generateFieldName(variable)}?.toJson()';
-  String _coreTypeFromJson(Variable variable) => '${variable.typeString?.replaceAll('?', '')}${type?.name.capitalizeFirst}.fromJson(json[\'${_generateFieldName(variable)}\'])';
-  String _listToJson(Variable variable) => variable.isCoreType == true ? _generateFieldName(variable) : '${_generateFieldName(variable)}?.map((e) => e.toJson()).toList()';
+
+  String _coreTypeFromJson(Variable variable) =>
+      '${variable.typeString?.replaceAll('?', '')}${type?.name.capitalizeFirst}.fromJson(json[\'${_generateFieldName(variable)}\'])';
+
+  String _listToJson(Variable variable) => variable.isCoreType == true
+      ? _generateFieldName(variable)
+      : '${_generateFieldName(variable)}?.map((e) => e.toJson()).toList()';
+
   String _listFromJson(Variable variable) => variable.isCoreType == true
       ? 'json[${_generateFieldName(variable)}]'
       : '(json[${_generateFieldName(variable)}] as List).map((e) => ${_getListInnerType(variable)}${type?.name.capitalizeFirst}.fromJson(e)).toList()';
+
   String _enumToJson(Variable variable) => '${_generateFieldName(variable)}?.name';
-  String _enumFromJson(Variable variable) => '${variable.typeString?.replaceAll('?', '')}.values.firstWhere((e) => e.name == json[\'${_generateFieldName(variable)}\'])';
+
+  String _enumFromJson(Variable variable) =>
+      '${variable.typeString?.replaceAll('?', '')}.values.firstWhere((e) => e.name == json[\'${_generateFieldName(variable)}\'])';
+
   String _defaultToJson(Variable variable) => _generateFieldName(variable);
+
   String _defaultFromJson(Variable variable) => 'json[${_generateFieldName(variable)}]';
-  String _getListInnerType(Variable variable) => variable.typeString!.replaceAll('List', '').replaceAll('<', '').replaceAll('>', '').replaceAll('?', '');
-  String _getGeneratedListInnerType(Variable variable) =>
-      variable.typeString!.replaceAll(_getListInnerType(variable), '${_getListInnerType(variable)}${variable.isCoreType == true ? '' : type?.name.capitalizeFirst}');
+
+  String _getListInnerType(Variable variable) =>
+      variable.typeString!.replaceAll('List', '').replaceAll('<', '').replaceAll('>', '').replaceAll('?', '');
+
+  String _getGeneratedListInnerType(Variable variable) => variable.typeString!.replaceAll(
+    _getListInnerType(variable),
+    '${_getListInnerType(variable)}${variable.isCoreType == true ? '' : type?.name.capitalizeFirst}',
+  );
 }

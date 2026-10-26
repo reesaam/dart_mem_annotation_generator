@@ -48,6 +48,13 @@ abstract class SampleMEMModelFreezed {
   List<String>? sampleList;
 }
 
+@Mem.model(withFreezed: true, includeListModel: true)
+abstract class SampleMEMModelFreezedListIncluded {
+  String? id;
+  String? name;
+  String? description;
+}
+
 @Mem.entity()
 abstract class SampleMEMEntity {
   String? name;
