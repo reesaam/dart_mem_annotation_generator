@@ -1,4 +1,3 @@
-
 <p align="center">
   Dart Model Entity Mapper (MEM) Annotation
 </p>
@@ -30,10 +29,11 @@ This package designed to prevent adding extra codes to add Models, Entities and 
 You can use it for Models, APIs and JSONs.
 
 ### Contents:
+
 * [Getting Started](#Getting-Started)
 * [Usage](#Usage)
 * [Options](#Options)
-  * [Some Examples](#Some-Examples)
+    * [Some Examples](#Some-Examples)
 * [Docs](#Docs)
 * [About Author](#About-Author)
 * [Packages and Dependencies](#Packages-and-Dependencies)
@@ -42,10 +42,11 @@ You can use it for Models, APIs and JSONs.
 ## Getting Started
 
 Add dependencies in the `pubspec.yaml`:
+
 ```yaml
 dependencies:
   dart_mem_annotation: ^latest
-  
+
   # If Freezed Code Generations needed:
   freezed: ^latest
   json_annotation: ^latest
@@ -58,17 +59,19 @@ dev_dependencies:
   freezed_annotation: ^latest
   json_serializable: ^latest
 ```
+
 Generator Library Link on pub.dev:
 
 <a href="https://pub.dev/packages/dart_mem_annotation_generator"><img src="https://img.shields.io/badge/pub-Dart_Mem_Annottaion_generator-blue?logo=dart" alt="Pub"></a>
 
-
-
 Get the Changes by:
+
 ```shell
 flutter pub get
 ```
+
 or
+
 ```shell
 dart pub get
 ```
@@ -76,16 +79,26 @@ dart pub get
 ## Usage
 
 Import Annotation:
+
 ```dart
 import 'package:dart_mem_annotation/dart_mem_annotation.dart';
 ```
+
 Part Directives should also be provided for Generated Codes on top of dart file:
+
 ```dart
 part '*filename*.mem.dart';
 ```
 
 Add desired `@Annotation` on top of the desired class and set the desired Options.
 Also InnerClasses are supported.
+
+> [!Important]
+>
+> For now, all fields should be Nullable with `?` like `String?` or `bool?`
+>
+> `Non-Nullable` fields needs `initializer` which would implement soon...
+
 
 Such as:
 
@@ -105,20 +118,42 @@ class SomeClass {
 @Mem.all(withFreezed: true)
 class SomeInnerClass {
   const InnerSample({this.name, this.description});
+
   final String? name;
   final String? description;
 }
 ```
 
+> [!Note]
+>
+> You can name the class with underline as a private class to hide the main class in your project.
+>
+> This way, only the generated classes like `Model` or `Entity` will be shown.
+>
+> `SomeHiddenClassEntity` and `SomeHiddenClassModel` would be visible all over the Project, this way you can prevent misuse of the main class
+
+like:
+```dart
+part 'some_file.mem.dart';
+
+@Mem.all()
+class _SomeHiddenClass {
+  String? name;
+  String? description;
+}
+```
 
 > [!Important]
-> 
+>
 > Important for Freezed Class:
-> 
-> InnerClasses if decorated with the annotation they all will have generated Model, Entity and Mappers, but if not, the class itself will use in the main class.
+>
+> InnerClasses if decorated with the annotation they all will have generated Model, Entity and Mappers, but if not, the
+class itself will use in the main class.
 
-then you should run the `build_runner` to generate the codes and creating related file and include all the pages, controllers, components and repositories in one place and prepared to use.
+then you should run the `build_runner` to generate the codes and creating related file and include all the pages,
+controllers, components and repositories in one place and prepared to use.
 You can use
+
 ```shell
 dart pub run build_runner build --delete-conflicting-outputs
 ```
@@ -131,14 +166,20 @@ All files will generate with `*.mem.dart` format.
 
 You can set some annotations and its Options in the `@Annotation`
 Available Annotations:
-  - `@Mem.all`: Will Generate all options, including Mode, Entity, and Mappers.
-  - Other Options are under Develop ...
+
+- `@Mem.all`: Will Generate all types, including Mode, Entity, and Mappers.
+- Other Options are under Develop ...
 
 Available Options:
+
 - `@Mem`
-  - `as`: Change the Name of the Page in the dependencies and use it as another name.
-  - `withFreezed`: All Generated Classes will decorate with `@freezed` Annotation, and all Freezed classes will generate after Mem Code Generation.
-  - `extendsBaseClass`: **(Not Recommended)** - Generated Classes will `extends` the Original Annotated Class, and without this option all classes will be independent.
+    - `as`: Change the Name of the Page in the dependencies and use it as another name.
+    - `withFreezed`: All Generated Classes will decorate with `@freezed` Annotation, and all Freezed classes will
+      generate after Mem Code Generation.
+    - `extendsBaseClass`: **(Not Recommended)** - Generated Classes will `extends` the Original Annotated Class, and
+      without this option all classes will be independent.
+    - `includeListModel`: This option is designed for `Freezed` classes which add `List` support for `toJson`
+      functionality.
 
 > [!Note]
 >
@@ -149,26 +190,28 @@ Available Options:
 > part '*filename*.g.dart'; // For JsonSerializable with Freezed
 > ```
 
-
 ## Docs
+
 <a href="https://github.com/reesaam/dart_mem_annotation_generator/tree/main/generator/doc/api"><img src="https://img.shields.io/badge/GitHub-Docs_Repository-important?logo=github" alt="build"></a>
 
 ## About Author
 
 ### Resam Taghipour
+
 <a href="https://www.resam.site"><img src="https://img.shields.io/badge/Website-resam.site-blue" alt="Pub"></a>
 <a href="https://github.com/reesaam"><img src="https://img.shields.io/badge/GitHub-reesaam-black?style=flat&logo=github&link=https%3A%2F%2Fgithub.com%2Freesaam" alt="account"></a>
 <a href="https://www.linkedin.com/in/resam"><img src="https://img.shields.io/badge/LinkedIn-resam-blue?logo=linkedin" alt="Pub"></a>
 <a href="emailto:resam@resam.site"><img src="https://img.shields.io/badge/Email-resam-important?logo=maildotru" alt="Pub"></a>
 
-
 ## Packages and Dependencies
+
 <a href="https://dart.dev"><img src="https://img.shields.io/badge/Dart-red?logo=dart" alt="Pub"></a>
 <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-blue?logo=flutter" alt="Pub"></a>
 <a href="https://pub.dev/packages/build_runner"><img src="https://img.shields.io/badge/pub-BuildRunner-red?logo=dart" alt="Pub"></a>
 <a href="https://pub.dev/packages/dartdoc"><img src="https://img.shields.io/badge/pub-DartDoc-red?logo=dart" alt="Pub"></a>
 
 ## License
+
 This project is licensed under the '**BSD-3-Clause**' License - see the LICENSE for details.
 
 <a href="https://pub.dev/packages/dart_model_entity_annotation/license"><img src="https://img.shields.io/badge/LICENSE-blue" alt="Pub"></a>
