@@ -16,9 +16,9 @@ dependencies:
   source_gen: ^4.2.3
   dart_style: ^3.0.1
 #  dartdoc: ^8.3.1
-#  dart_mem_annotation: ^0.1.4
-  dart_mem_annotation:
-    path: ../annotation/
+  dart_mem_annotation: ^0.2.0
+#  dart_mem_annotation:
+#    path: ../annotation/
 
 dev_dependencies:
   lints: ^4.0.0
