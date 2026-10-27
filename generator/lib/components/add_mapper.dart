@@ -14,27 +14,27 @@ class AddMapper {
     String className = data.className?.capitalizeFirst ?? Strings.unnamedClass;
     variables = data.variablesList ?? [];
     String code = '';
-    code += AddCode.addCommentLine('  ==> Entity to Model Mapper Extension');
     code += _addMapper(className: className, firstType: AnnotationTypes.entity, secondType: AnnotationTypes.model);
-    code += AddCode.addCommentLine('  ==> Model to Entity Mapper Extension');
     code += _addMapper(className: className, firstType: AnnotationTypes.model, secondType: AnnotationTypes.entity);
     return code;
   }
 
   /// This function will generate the Mappers for both [Model] and [Entity]
   /// Enums, sub-classes and Lists will considered, and everything has been generated for the best response and handle every situation for any type of data
-  _addMapper({
-    required String className,
-    required AnnotationTypes firstType,
-    required AnnotationTypes secondType,
-  }) {
+  _addMapper({required String className, required AnnotationTypes firstType, required AnnotationTypes secondType}) {
     String firstTypeClassName = '$className${firstType.getClassName}';
     String secondTypeClassName = '$className${secondType.getClassName}';
-    return '\nextension ${Strings.mapperExtensionName}$firstTypeClassName on $firstTypeClassName {$secondTypeClassName get ${Strings.mapperClassName} => $secondTypeClassName(${_addMapperFields(
-      className: className,
-      firstType: secondType,
-      secondType: firstType,
-    )});\n}\n';
+
+    var code = AddCode.addCommentLine(
+      '[$className] ${firstType.getClassName} to ${secondType.getClassName} Mapper Extension:',
+    );
+    code += AddCode.addLine(
+      'extension ${Strings.mapperExtensionName}$firstTypeClassName on $firstTypeClassName {$secondTypeClassName get ${Strings.mapperClassName} =>',
+    );
+    code += AddCode.addLine(
+      '$secondTypeClassName(${_addMapperFields(className: className, firstType: secondType, secondType: firstType)});\n}\n',
+    );
+    return code;
   }
 
   /// Generate Field in the Base Class and out them into generated class
@@ -50,7 +50,8 @@ class AddMapper {
     for (Variable variable in variables) {
       variable.isCoreType == true
           ? mapperFieldsCode += '${variable.name}: ${variable.name}'
-          : mapperFieldsCode += '${variable.name}${firstType.getClassName}: ${variable.name}${secondType.getClassName}?${variable.isList == true ? '.map((e) => e.mapper).toList()' : '.mapper'}';
+          : mapperFieldsCode +=
+                '${variable.name}${firstType.getClassName}: ${variable.name}${secondType.getClassName}?${variable.isList == true ? '.map((e) => e.mapper).toList()' : '.mapper'}';
       mapperFieldsCode += ',\n';
     }
     return mapperFieldsCode;

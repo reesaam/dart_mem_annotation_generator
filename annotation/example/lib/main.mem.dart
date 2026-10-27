@@ -20,7 +20,7 @@ part of 'main.dart';
 ///     Constructors Count: 1
 ///     Variables Count: 6
 
-///   ==> Model Class:
+/// [Sample] Model:
 class SampleModel {
   SampleModel({
     this.sampleEnum,
@@ -65,7 +65,7 @@ class SampleModel {
   }
 }
 
-///   ==> Entity Class:
+/// [Sample] Entity:
 class SampleEntity {
   SampleEntity({
     this.sampleEnum,
@@ -84,8 +84,7 @@ class SampleEntity {
   List<InnerSampleEntity>? innerSampleListEntity;
 }
 
-///   ==> Mapper Classes:
-///   ==> Entity to Model Mapper Extension
+/// [Sample] Entity to Model Mapper Extension:
 extension MapperExtensionOnSampleEntity on SampleEntity {
   SampleModel get mapper => SampleModel(
     sampleEnum: sampleEnum,
@@ -97,7 +96,7 @@ extension MapperExtensionOnSampleEntity on SampleEntity {
   );
 }
 
-///   ==> Model to Entity Mapper Extension
+/// [Sample] Model to Entity Mapper Extension:
 extension MapperExtensionOnSampleModel on SampleModel {
   SampleEntity get mapper => SampleEntity(
     sampleEnum: sampleEnum,
@@ -124,7 +123,7 @@ extension MapperExtensionOnSampleModel on SampleModel {
 ///     Constructors Count: 1
 ///     Variables Count: 2
 
-///   ==> Model Class:
+/// [InnerSample] Model:
 @Freezed(toJson: true, fromJson: true)
 abstract class InnerSampleModel with _$InnerSampleModel {
   const factory InnerSampleModel({
@@ -136,7 +135,7 @@ abstract class InnerSampleModel with _$InnerSampleModel {
       _$InnerSampleModelFromJson(json);
 }
 
-///   ==> Entity Class:
+/// [InnerSample] Entity:
 @Freezed(toJson: false, fromJson: false)
 abstract class InnerSampleEntity with _$InnerSampleEntity {
   const factory InnerSampleEntity({
@@ -145,14 +144,13 @@ abstract class InnerSampleEntity with _$InnerSampleEntity {
   }) = _InnerSampleEntity;
 }
 
-///   ==> Mapper Classes:
-///   ==> Entity to Model Mapper Extension
+/// [InnerSample] Entity to Model Mapper Extension:
 extension MapperExtensionOnInnerSampleEntity on InnerSampleEntity {
   InnerSampleModel get mapper =>
       InnerSampleModel(name: name, description: description);
 }
 
-///   ==> Model to Entity Mapper Extension
+/// [InnerSample] Model to Entity Mapper Extension:
 extension MapperExtensionOnInnerSampleModel on InnerSampleModel {
   InnerSampleEntity get mapper =>
       InnerSampleEntity(name: name, description: description);
@@ -172,7 +170,7 @@ extension MapperExtensionOnInnerSampleModel on InnerSampleModel {
 ///     Constructors Count: 1
 ///     Variables Count: 3
 
-///   ==> Model Class:
+/// [SampleMEMModel] Model:
 class SampleMEMModelModel {
   SampleMEMModelModel({this.name, this.description, this.sampleList});
 
@@ -210,7 +208,7 @@ class SampleMEMModelModel {
 ///     Constructors Count: 1
 ///     Variables Count: 3
 
-///   ==> Model Class:
+/// [SampleMEMModelFreezed] Model:
 @Freezed(toJson: true, fromJson: true)
 abstract class SampleMEMModelFreezedModel with _$SampleMEMModelFreezedModel {
   const factory SampleMEMModelFreezedModel({
@@ -238,7 +236,7 @@ abstract class SampleMEMModelFreezedModel with _$SampleMEMModelFreezedModel {
 ///     Constructors Count: 1
 ///     Variables Count: 3
 
-///   ==> Model Class:
+/// [SampleMEMModelFreezedListIncluded] Model:
 @Freezed(toJson: true, fromJson: true)
 abstract class SampleMEMModelFreezedListIncludedModel
     with _$SampleMEMModelFreezedListIncludedModel {
@@ -280,7 +278,7 @@ abstract class SampleMEMModelFreezedListIncludedModelsList
 ///     Constructors Count: 1
 ///     Variables Count: 3
 
-///   ==> Entity Class:
+/// [SampleMEMEntity] Entity:
 class SampleMEMEntityEntity {
   SampleMEMEntityEntity({this.name, this.description, this.sampleList});
 
@@ -304,7 +302,7 @@ class SampleMEMEntityEntity {
 ///     Constructors Count: 1
 ///     Variables Count: 3
 
-///   ==> Entity Class:
+/// [SampleMEMEntityFreezed] Entity:
 @Freezed(toJson: false, fromJson: false)
 abstract class SampleMEMEntityFreezedEntity
     with _$SampleMEMEntityFreezedEntity {

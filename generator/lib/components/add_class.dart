@@ -37,7 +37,9 @@ class AddClass {
     String generatedClass = Strings.empty;
     // generatedClass += Prints.variablesList(variables);
 
+
     generatedClassName = '${data.className?.capitalizeFirst}${type?.name.capitalizeFirst}';
+    generatedClass = AddCode.addCommentLine('[${data.className?.capitalizeFirst}] ${type?.getClassName}:');
     if (isFreezed == true) {
       bool jsonGeneration = type == AnnotationTypes.model;
       generatedClass += AddCode.addLine(

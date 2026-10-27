@@ -4,6 +4,7 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/dart/element/visitor2.dart';
 import 'package:build/build.dart';
 import 'package:dart_mem_annotation/dart_mem_annotation.dart';
+import 'package:dart_mem_annotation_generator/extensions/annotation_type.dart';
 import 'package:dart_mem_annotation_generator/extensions/constant_reader.dart';
 import 'package:dart_mem_annotation_generator/extensions/dart_type.dart';
 import 'package:dart_mem_annotation_generator/extensions/generator_data.dart';
@@ -93,6 +94,7 @@ class AnnotationBuilder extends GeneratorForAnnotation<Mem> {
     code += AddCode.addSpace();
 
     GeneratorData generatorData = GeneratorData(
+      annotationType: annotation.getName?.getAnnotationType,
       className: annotation.getAs ?? className,
       variablesList: variablesList,
       isAbstract: annotation.getAbstract,
@@ -106,18 +108,14 @@ class AnnotationBuilder extends GeneratorForAnnotation<Mem> {
       return throw (ExceptionMessages.listIncludedWithoutFreezed);
 
     // Select Generation Type and Method
-    if (annotation.getName == AnnotationTypes.all.name || annotation.getName == AnnotationTypes.model.name) {
-      code += AddCode.addCommentLine('  ==> Model Class:');
+    if (generatorData.annotationType == AnnotationTypes.all || generatorData.annotationType == AnnotationTypes.model)
       code += AddClass().generate(generatorData.copyWith(annotationType: AnnotationTypes.model));
-    }
-    if (annotation.getName == AnnotationTypes.all.name || annotation.getName == AnnotationTypes.entity.name) {
-      code += AddCode.addCommentLine('  ==> Entity Class:');
+
+    if (generatorData.annotationType == AnnotationTypes.all || generatorData.annotationType == AnnotationTypes.entity)
       code += AddClass().generate(generatorData.copyWith(annotationType: AnnotationTypes.entity));
-    }
-    if (annotation.getName == AnnotationTypes.all.name) {
-      code += AddCode.addCommentLine('  ==> Mapper Classes:');
-      code += AddMapper().generate(generatorData);
-    }
+
+    if (generatorData.annotationType == AnnotationTypes.all) code += AddMapper().generate(generatorData);
+
     return code;
   }
 }

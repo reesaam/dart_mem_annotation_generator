@@ -14,12 +14,12 @@ class GeneratorData {
 
   GeneratorData({
     this.className,
-    this.annotationType,
+    this.annotationType = AnnotationTypes.all,
     this.imports,
     this.variablesList,
-    required this.isAbstract,
-    required this.isFreezed,
-    required this.isListIncluded,
-    required this.extended,
+    this.isAbstract = false,
+    this.isFreezed = false,
+    this.isListIncluded = false,
+    this.extended = false,
   });
 }
